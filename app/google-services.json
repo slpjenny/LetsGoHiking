@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "153705996801",
+    "firebase_url": "https://letsgohiking-6ae45.firebaseio.com",
+    "project_id": "letsgohiking-6ae45",
+    "storage_bucket": "letsgohiking-6ae45.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153705996801:android:d4fb0b990febb9cf655600",
+        "android_client_info": {
+          "package_name": "com.tave.letsgohiking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "153705996801-5mv9pi8ivko4lu8cl2gnbsqj2hc081ml.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tave.letsgohiking",
+            "certificate_hash": "fdcb03c56db3c4f500b688fa874226d2b7a8f092"
+          }
+        },
+        {
+          "client_id": "153705996801-ct9g4e0r9tmf8q0ii4d5sap9h25veabr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOQRygmp8Q5E6EGwcoK-tToEx9uaf6eGY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "153705996801-ct9g4e0r9tmf8q0ii4d5sap9h25veabr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
