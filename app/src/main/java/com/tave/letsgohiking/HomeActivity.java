@@ -1,7 +1,11 @@
 package com.tave.letsgohiking;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +26,8 @@ public class HomeActivity extends AppCompatActivity {
     private FragmentMeasure fragmentMeasure = new FragmentMeasure();
     private FragmentCommunity fragmentCommunity = new FragmentCommunity();
     private FragmentSetting fragmentSetting = new FragmentSetting();
+    private Button searchBtn = findViewById(R.id.searchBtn);
+    private EditText searchText = findViewById(R.id.searchText);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,18 @@ public class HomeActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
+
+
+        searchBtn.setOnClickListener(new View.OnClickListener() { // 산 검색을 받고 SearchActivity.class로 이동하는 리스너 등록
+            @Override
+            public void onClick(View view) {
+                String mtnName = searchText.getText().toString();
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                intent.putExtra("mtnName", mtnName);
+                startActivityForResult(intent, 101);
+            }
+
+        });
     }
 
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
