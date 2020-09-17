@@ -50,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
 
-        //getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutHome, fragmentHome).commit();
+       // getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutHome, fragmentHome).commit();
         tabs.addTab(tabs.newTab().setText("홈"));
         tabs.addTab(tabs.newTab().setText("산 검색"));
 
