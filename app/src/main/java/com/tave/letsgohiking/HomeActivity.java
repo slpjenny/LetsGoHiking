@@ -19,10 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 public class HomeActivity extends AppCompatActivity {
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_home);
-//    }
+
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private FragmentHome fragmentHome = new FragmentHome();
@@ -30,7 +27,7 @@ public class HomeActivity extends AppCompatActivity {
     private FragmentMeasure fragmentMeasure = new FragmentMeasure();
     private FragmentCommunity fragmentCommunity = new FragmentCommunity();
     private FragmentSetting fragmentSetting = new FragmentSetting();
-    private FragmentSearch fragmentSearch = new FragmentSearch();
+
 
     //private TabLayout tabs = findViewById(R.id.tabs);
 
@@ -44,19 +41,6 @@ public class HomeActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-
-//        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutHome, fragmentHome).commit();
-//        tabs.addTab(tabs.newTab().setText("홈"));
-//        tabs.addTab(tabs.newTab().setText("산 검색"));
-
-
- //       tabs.addOnTabSelectedListener(new TabSelectedListener());
- //       */
 
     }
 
@@ -76,9 +60,6 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.measureItem:
                     transaction.replace(R.id.frameLayout, fragmentMeasure).commitAllowingStateLoss();
                     break;
-                case R.id.communityItem:
-                    transaction.replace(R.id.frameLayout, fragmentCommunity).commitAllowingStateLoss();
-                    break;
                 case R.id.settingItem:
                     transaction.replace(R.id.frameLayout, fragmentSetting).commitAllowingStateLoss();
                     break;
@@ -86,28 +67,5 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         }
     }
-    /*
-    상단탭 SelectListener 등록
 
-    class TabSelectedListener implements TabLayout.OnTabSelectedListener {
-        @Override
-        public void onTabSelected(TabLayout.Tab tab) {
-            int position = tab.getPosition();
-            Fragment selected = null;
-
-            if(position == 0) {
-                selected = fragmentHome;
-            } else if(position == 1){
-                selected = fragmentSearch;
-            }
-        }
-        @Override
-        public void onTabUnselected(TabLayout.Tab tab) {
-            Fragment fragmentHome;
-        }
-
-        @Override
-        public void onTabReselected(TabLayout.Tab tab) {}
-    }
-    */
 }
