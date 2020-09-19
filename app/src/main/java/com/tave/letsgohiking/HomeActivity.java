@@ -27,6 +27,7 @@ public class HomeActivity extends AppCompatActivity {
     private FragmentMeasure fragmentMeasure = new FragmentMeasure();
     private FragmentCommunity fragmentCommunity = new FragmentCommunity();
     private FragmentSetting fragmentSetting = new FragmentSetting();
+    private FragmentMap fragmentMap = new FragmentMap();
 
 
     //private TabLayout tabs = findViewById(R.id.tabs);
