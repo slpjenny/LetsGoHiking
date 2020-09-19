@@ -32,7 +32,6 @@ public class HomeActivity extends AppCompatActivity {
     private FragmentSetting fragmentSetting = new FragmentSetting();
     private FragmentSearch fragmentSearch = new FragmentSearch();
 
-    //private Toolbar toolbar = findViewById(R.id.toolbar);
     //private TabLayout tabs = findViewById(R.id.tabs);
 
     @Override
@@ -45,18 +44,19 @@ public class HomeActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
-        //상단탭
-        /*
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutHome, fragmentHome).commit();
-        tabs.addTab(tabs.newTab().setText("홈"));
-        tabs.addTab(tabs.newTab().setText("산 검색"));
+//        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutHome, fragmentHome).commit();
+//        tabs.addTab(tabs.newTab().setText("홈"));
+//        tabs.addTab(tabs.newTab().setText("산 검색"));
 
 
-        tabs.addOnTabSelectedListener(new TabSelectedListener());
-        */
+ //       tabs.addOnTabSelectedListener(new TabSelectedListener());
+ //       */
 
     }
 
