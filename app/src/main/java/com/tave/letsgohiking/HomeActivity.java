@@ -32,8 +32,8 @@ public class HomeActivity extends AppCompatActivity {
     private FragmentSetting fragmentSetting = new FragmentSetting();
     private FragmentSearch fragmentSearch = new FragmentSearch();
 
-    private Toolbar toolbar = findViewById(R.id.toolbar);
-    private TabLayout tabs = findViewById(R.id.tabs);
+    //private Toolbar toolbar = findViewById(R.id.toolbar);
+    //private TabLayout tabs = findViewById(R.id.tabs);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +45,19 @@ public class HomeActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
-
         //상단탭
+        /*
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
 
-       // getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutHome, fragmentHome).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutHome, fragmentHome).commit();
         tabs.addTab(tabs.newTab().setText("홈"));
         tabs.addTab(tabs.newTab().setText("산 검색"));
 
 
         tabs.addOnTabSelectedListener(new TabSelectedListener());
+        */
+
     }
 
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -84,7 +86,9 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         }
     }
-    // 상단탭 SelectListener 등록
+    /*
+    상단탭 SelectListener 등록
+
     class TabSelectedListener implements TabLayout.OnTabSelectedListener {
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
@@ -105,5 +109,5 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public void onTabReselected(TabLayout.Tab tab) {}
     }
-
+    */
 }
