@@ -27,8 +27,11 @@ import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.util.FusedLocationSource;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements OnMapReadyCallback{
 
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
+    private FusedLocationSource locationSource;
+    private NaverMap naverMap;
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private FragmentHome fragmentHome = new FragmentHome();
@@ -50,9 +53,8 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
 
-        //UiSettings uiSettings = NaverMap.getUiSettings();
-        //uiSettings.isLocationButtonEnabled();
-
+        mapFragment.getMapAsync(this);
+        locationSource =  new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
     }
 
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -79,6 +81,31 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         }
     }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,  @NonNull int[] grantResults) {
+        if (locationSource.onRequestPermissionsResult(
+                requestCode, permissions, grantResults)) {
+
+            locationSource.isActivated();
+            if (!locationSource.isActivated()) { // 권한 거부됨
+               naverMap.setLocationTrackingMode(LocationTrackingMode.None);
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(
+                requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void onMapReady(@NonNull NaverMap naverMap) {
+        this.naverMap = naverMap;
+        naverMap.setLocationSource(locationSource);
+        naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+    }
+
 
     /*
     //NaverMap 객체 얻어오기
@@ -108,7 +135,7 @@ public class HomeActivity extends AppCompatActivity {
     }
     */
 
-
+    /*
     //액티비티에서 FusedLocationSource를 생성하고 NaverMap에 지정하는 예제
     public class LocationTrackingActivity extends AppCompatActivity
             implements OnMapReadyCallback {
@@ -144,6 +171,7 @@ public class HomeActivity extends AppCompatActivity {
             naverMap.setLocationSource(locationSource);
         }
     }
+     */
 }
 
 
