@@ -86,6 +86,10 @@ public class LoginActivity extends AppCompatActivity {
                             Snackbar.make(findViewById(R.id.loginLayout), "Authentication Successed.", Snackbar.LENGTH_SHORT).show();
                             FirebaseUser user = auth.getCurrentUser();
                             updateUI(user);
+
+                            Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(mainIntent);
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Snackbar.make(findViewById(R.id.loginLayout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();

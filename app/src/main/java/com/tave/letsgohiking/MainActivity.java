@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             if (!locationSource.isActivated()) { // 권한 거부됨
                naverMap.setLocationTrackingMode(LocationTrackingMode.None);
             }
+
             return;
         }
         super.onRequestPermissionsResult(
@@ -93,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.naverMap = naverMap;
         naverMap.setLocationSource(locationSource);
         naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+
+        //현위치로 이동 버튼
         UiSettings uiSettings = naverMap.getUiSettings();
         uiSettings.setLocationButtonEnabled(true);
 
