@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/homeItem"
-        android:icon="@drawable/home"
+        android:icon="@drawable/box"
         android:title="홈"
         />
     <item
         android:id="@+id/recordItem"
-        android:icon="@drawable/record"
+        android:icon="@drawable/box"
         android:title="기록"
          />
     <item
         android:id="@+id/measureItem"
-        android:icon="@drawable/measure"
+        android:icon="@drawable/box"
         android:title="측정"
         />
 
     <item
         android:id="@+id/settingItem"
-        android:icon="@drawable/setting"
+        android:icon="@drawable/box"
         android:title="환경설정"
          />
 </menu>

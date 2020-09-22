@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tave.letsgohiking">
 
+    <!--지도 API 현재 위치 추적 사용 허가 받는 권한 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -14,14 +15,13 @@
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="ge5o6tj5et" />
-        <activity android:name=".HomeActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity"></activity>
     </application>
 
