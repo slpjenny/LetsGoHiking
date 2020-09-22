@@ -24,7 +24,7 @@ import java.net.URL;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class FragmentSetting extends Fragment {
+public class SettingFragment extends Fragment {
     private FirebaseAuth mAuth;
     Bitmap bitmap;
 

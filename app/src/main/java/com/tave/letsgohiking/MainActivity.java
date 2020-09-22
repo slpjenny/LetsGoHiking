@@ -22,10 +22,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private NaverMap naverMap;
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
-    private FragmentRecord fragmentRecord = new FragmentRecord();
-    private FragmentMeasure fragmentMeasure = new FragmentMeasure();
-    private FragmentBadge fragmentBadge = new FragmentBadge();
-    private FragmentSetting fragmentSetting = new FragmentSetting();
+    private recordFragment recordFragment = new recordFragment();
+    private badgeFragment badgeFragment = new badgeFragment();
+    private SettingFragment settingFragment = new SettingFragment();
     private MapFragment mapFragment = new MapFragment();
 
     @Override
@@ -52,17 +51,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             switch(menuItem.getItemId())
             {
                 case R.id.homeItem:
-                    //transaction.replace(R.id.frameLayout, fragmentHome).commitAllowingStateLoss();
                     transaction.replace(R.id.frameLayout, mapFragment).commitAllowingStateLoss(); //수정
                     break;
                 case R.id.recordItem:
-                    transaction.replace(R.id.frameLayout, fragmentRecord).commitAllowingStateLoss();
+                    transaction.replace(R.id.frameLayout, recordFragment).commitAllowingStateLoss();
                     break;
-                case R.id.measureItem:
-                    transaction.replace(R.id.frameLayout, fragmentMeasure).commitAllowingStateLoss();
+                case R.id.badgeItem:
+                    transaction.replace(R.id.frameLayout, badgeFragment).commitAllowingStateLoss();
                     break;
                 case R.id.settingItem:
-                    transaction.replace(R.id.frameLayout, fragmentSetting).commitAllowingStateLoss();
+                    transaction.replace(R.id.frameLayout, settingFragment).commitAllowingStateLoss();
                     break;
             }
             return true;

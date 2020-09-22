@@ -18,7 +18,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigationView"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_weight="0.1"
         app:itemBackground="@color/common_google_signin_btn_text_dark_pressed"
         app:labelVisibilityMode="labeled"
