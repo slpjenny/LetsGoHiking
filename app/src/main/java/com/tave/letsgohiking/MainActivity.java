@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             locationSource.isActivated();
             if (!locationSource.isActivated()) { // 권한 거부됨
-               naverMap.setLocationTrackingMode(LocationTrackingMode.None);
+                naverMap.setLocationTrackingMode(LocationTrackingMode.None);
             }
 
             return;
@@ -101,5 +101,4 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 }
-
 
