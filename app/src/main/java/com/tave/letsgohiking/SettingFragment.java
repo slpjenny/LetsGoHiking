@@ -82,13 +82,21 @@ public class SettingFragment extends Fragment {
         }
 
 
-
+        // 버튼 클릭하면 로그아웃
         Button google_logoutBtn=rootView.findViewById(R.id.google_logoutBtn);
         google_logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signOut();
+            }
+        });
 
+        // 버튼 클릭하면 회원 탈퇴
+        Button button2=rootView.findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                revokeAccess();
             }
         });
 
@@ -96,8 +104,14 @@ public class SettingFragment extends Fragment {
 
     }
 
+    // 로그아웃
     private void signOut(){
         FirebaseAuth.getInstance().signOut();
+    }
+
+    // 회원 탈퇴
+    private void revokeAccess() {
+        mAuth.getCurrentUser().delete();
     }
 
 }
