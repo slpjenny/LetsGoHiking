@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
         if (user != null) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-            finish();
+//            finish();   //이거 왜 쓰고 안쓰고 결과 같은지 모르겠음
         }
     }
 }
