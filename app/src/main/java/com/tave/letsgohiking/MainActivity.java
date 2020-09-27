@@ -7,6 +7,8 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private SettingFragment settingFragment = new SettingFragment();
     private MapFragment mapFragment = new MapFragment();
 
+    private Button startBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         locationSource =  new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
 
         startLocationService(); //위도, 경도 정보 받기
+        startBtn = findViewById(R.id.startBtn);
     }
 
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -61,15 +66,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             {
                 case R.id.homeItem:
                     transaction.replace(R.id.frameLayout, mapFragment).commitAllowingStateLoss();
+                    startBtn.setVisibility(View.VISIBLE);
                     break;
                 case R.id.recordItem:
                     transaction.replace(R.id.frameLayout, recordFragment).commitAllowingStateLoss();
+                    startBtn.setVisibility(View.INVISIBLE);
                     break;
                 case R.id.badgeItem:
                     transaction.replace(R.id.frameLayout, badgeFragment).commitAllowingStateLoss();
+                    startBtn.setVisibility(View.INVISIBLE);
                     break;
                 case R.id.settingItem:
                     transaction.replace(R.id.frameLayout, settingFragment).commitAllowingStateLoss();
+                    startBtn.setVisibility(View.INVISIBLE);
                     break;
             }
             return true;
