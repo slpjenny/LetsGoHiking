@@ -91,12 +91,9 @@ public class SettingFragment extends Fragment {
             public void onClick(View view) {
                 signOut();
 
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
+                Intent loginintent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(loginintent);
 
-//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//                fragmentManager.beginTransaction().remove(SettingFragment.this).commit();
-//                fragmentManager.popBackStack();
             }
         });
 
