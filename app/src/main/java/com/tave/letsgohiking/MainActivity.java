@@ -1,8 +1,13 @@
 package com.tave.letsgohiking;
 
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
         locationSource =  new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
 
-
+        startLocationService(); //위도, 경도 정보 받기
     }
 
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -98,7 +103,43 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //현위치로 이동 버튼
         UiSettings uiSettings = naverMap.getUiSettings();
         uiSettings.setLocationButtonEnabled(true);
+    }
+    //현재 위치에 대한 위도, 경도 정보 받기
+    public void startLocationService() {
+        LocationManager manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
+        try {
+            Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if(location != null) {
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+                Log.d("Map", "최근 위치-> Latitude: "+ latitude + "Longitude: " + longitude);
+            }
+
+            GPSListener gpsListener = new GPSListener();
+            long minTime = 1000;
+            float minDistance = 0;
+
+            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, gpsListener);
+            Log.d("Map", "내 위치확인 요청함");
+
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+    }
+
+    class GPSListener implements LocationListener {
+        public void onLocationChanged(Location location) {
+            double latitude = location.getLatitude();
+            double longitude = location.getLongitude();
+            Log.d("Map", "바뀐 위치-> Latitude: "+ latitude + "Longitude: " + longitude);
+        }
+
+        public void onProviderDisabled(String provider) { }
+
+        public void onProviderEnabled(String provider) { }
+
+        public void onStatusChanged(String provider, int status, Bundle extras) { }
     }
 }
 
