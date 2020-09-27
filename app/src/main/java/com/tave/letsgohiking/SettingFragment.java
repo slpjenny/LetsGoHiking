@@ -28,11 +28,10 @@ public class SettingFragment extends Fragment {
     private FirebaseAuth mAuth;
     Bitmap bitmap;
 
-    Button google_logoutBtn, button2;
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView=(ViewGroup)inflater.inflate(R.layout.fragment_setting, container, false);
 
+        mAuth=FirebaseAuth.getInstance();
         final FirebaseUser user=mAuth.getCurrentUser();
 
         CircleImageView user_profile=rootView.findViewById(R.id.user_profile);
@@ -84,8 +83,7 @@ public class SettingFragment extends Fragment {
 
 
         // 버튼 클릭하면 로그아웃
-        google_logoutBtn=rootView.findViewById(R.id.google_logoutBtn);
-        mAuth=FirebaseAuth.getInstance();
+        Button google_logoutBtn=rootView.findViewById(R.id.google_logoutBtn);
         google_logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,7 +92,7 @@ public class SettingFragment extends Fragment {
         });
 
         // 버튼 클릭하면 회원 탈퇴
-        button2 = rootView.findViewById(R.id.button2);
+        Button button2=rootView.findViewById(R.id.button2);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

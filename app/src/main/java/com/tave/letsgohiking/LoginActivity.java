@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         auth= FirebaseAuth.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id)) //string 파일이 만들어지지않았음.
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -87,8 +87,10 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser user = auth.getCurrentUser();
                             updateUI(user);
 
-                            Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(mainIntent);
+//                            Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+//                            startActivity(mainIntent);
+//                            finish();
+
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -102,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
+        // 로그인이 되어있을 시,
         FirebaseUser currentUser = auth.getCurrentUser();
         updateUI(currentUser);
     }
