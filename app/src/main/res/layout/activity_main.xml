@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="250dp"
-            android:text="시작하기" />
+            android:text="시작" />
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
