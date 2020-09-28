@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         startLocationService(); //위도, 경도 정보 받기
         startBtn = findViewById(R.id.startBtn);
+        startBtn.setVisibility(View.VISIBLE);
         startBtn.setOnClickListener(new View.OnClickListener(){
 
             @Override
