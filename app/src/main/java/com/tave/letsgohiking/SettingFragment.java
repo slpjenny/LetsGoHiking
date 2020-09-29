@@ -100,7 +100,7 @@ public class SettingFragment extends Fragment {
             account = accounts[i];
             Log.d("HSGIL", "Account - name: " + account.name + ", type :" + account.type);
             if(account.type.equals("com.google")){		//이러면 구글 계정 구분 가능
-                textView.setText(account.toString());
+                textView.setText(account.name);
             }
 
         }
