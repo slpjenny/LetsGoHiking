@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
                 Log.d("Map", "최근 위치-> Latitude: "+ latitude + "Longitude: " + longitude);
+                //lastLocation 시작 위치로 초기화
                 if(lastLocation != null) {
                     lastLocation.setLatitude(latitude);
                     lastLocation.setLongitude(longitude);
@@ -162,6 +163,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             Log.d("Map", "바뀐 위치-> Latitude: "+ latitude + "Longitude: " + longitude);
             //double mySpeed = location.getSpeed()*3600/1000;
             //Log.d("Map", "현재 속도-> "+mySpeed);
+
+            //lastLocation과 location 사이 거리 측정과 속도 측정
             double distance;
             if(location != null && lastLocation != null) {
                 distance = location.distanceTo(lastLocation);
