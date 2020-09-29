@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private MapFragment mapFragment = new MapFragment();
 
     private Button startBtn;
+
+    private Location lastLocation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,6 +135,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
                 Log.d("Map", "최근 위치-> Latitude: "+ latitude + "Longitude: " + longitude);
+                if(lastLocation != null) {
+                    lastLocation.setLatitude(latitude);
+                    lastLocation.setLongitude(longitude);
+                }
             }
 
             GPSListener gpsListener = new GPSListener();
@@ -152,6 +158,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
             Log.d("Map", "바뀐 위치-> Latitude: "+ latitude + "Longitude: " + longitude);
+            //double mySpeed = location.getSpeed()*3600/1000;
+            //Log.d("Map", "현재 속도-> "+mySpeed);
+            double distance;
+            if(location != null && lastLocation != null) {
+                distance = location.distanceTo(lastLocation);
+                Log.d("Distance", String.valueOf(distance)+"m");
+            }
+            lastLocation = location;
         }
 
         public void onProviderDisabled(String provider) { }
