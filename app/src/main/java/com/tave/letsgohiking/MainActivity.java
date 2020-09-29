@@ -1,6 +1,7 @@
 package com.tave.letsgohiking;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private MapFragment mapFragment = new MapFragment();
 
     private Button startBtn;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +56,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         startLocationService(); //위도, 경도 정보 받기
         startBtn = findViewById(R.id.startBtn);
+        startBtn.setVisibility(View.VISIBLE);
+        startBtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MeasureActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{

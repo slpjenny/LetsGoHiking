@@ -106,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+
         // 로그인이 되어있을 시,
 
         FirebaseUser currentUser = auth.getCurrentUser();
