@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Button startBtn;
 
     private Location lastLocation;
+    private long minTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
             GPSListener gpsListener = new GPSListener();
-            long minTime = 1000;
+            minTime = 1000;
             float minDistance = 0;
 
             manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, gpsListener);
@@ -163,7 +165,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             double distance;
             if(location != null && lastLocation != null) {
                 distance = location.distanceTo(lastLocation);
-                Log.d("Distance", String.valueOf(distance)+"m");
+                Log.d("Distance", "거리: "+String.valueOf(distance)+"m");
+                double speed = distance / minTime*1000;
+                Log.d("Distance", "현재속도: "+speed+"m/s");
             }
             lastLocation = location;
         }
