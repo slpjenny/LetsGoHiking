@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.tave.letsgohiking">
 
     <!--지도 API 현재 위치 추적 사용 허가 받는 권한 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    // 구글 account 정보 가져오기
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCOUNT_MANAGER"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+
 
     <application
         android:allowBackup="true"

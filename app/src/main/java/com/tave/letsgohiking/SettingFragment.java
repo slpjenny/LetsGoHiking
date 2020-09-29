@@ -1,14 +1,18 @@
 package com.tave.letsgohiking;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SettingFragment extends Fragment {
     private FirebaseAuth mAuth;
     Bitmap bitmap;
+    TextView textView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView=(ViewGroup)inflater.inflate(R.layout.fragment_setting, container, false);
@@ -83,6 +88,22 @@ public class SettingFragment extends Fragment {
 
         }
 
+        // 로그인 정보 textView에 받아오기
+        textView=rootView.findViewById(R.id.textView);
+
+        AccountManager manager = AccountManager.get(getActivity());
+        Account[] accounts =  manager.getAccounts();
+        final int count = accounts.length;
+        Account account = null;
+
+        for(int i=0;i<count;i++) {
+            account = accounts[i];
+            Log.d("HSGIL", "Account - name: " + account.name + ", type :" + account.type);
+            if(account.type.equals("com.google")){		//이러면 구글 계정 구분 가능
+                textView.setText(account.toString());
+            }
+
+        }
 
         // 버튼 클릭하면 로그아웃
         Button google_logoutBtn=rootView.findViewById(R.id.google_logoutBtn);
