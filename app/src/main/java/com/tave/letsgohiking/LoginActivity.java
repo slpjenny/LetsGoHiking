@@ -37,9 +37,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        google_loginBtn= findViewById(R.id.google_loginBtn);
-        auth= FirebaseAuth.getInstance();
+        google_loginBtn = findViewById(R.id.google_loginBtn);
+        auth = FirebaseAuth.getInstance();  //파이어베이스 인증 객체 선언
 
+        //로그인 시도할 액티비티에서 유저데이터 요청
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -65,15 +66,20 @@ public class LoginActivity extends AppCompatActivity {
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
+
+                Log.e("RESULT", task.toString());
             } catch (ApiException e) {
             }
         }
     }
 
+
+    //구글 파이어베이스로 값 넘기기
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -83,14 +89,10 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Snackbar.make(findViewById(R.id.loginLayout), "Authentication Successed.", Snackbar.LENGTH_SHORT).show();
                             FirebaseUser user = auth.getCurrentUser();
                             updateUI(user);
 
-//                            Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
-//                            startActivity(mainIntent);
-//                            finish();
-
+                            finish();
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -105,8 +107,12 @@ public class LoginActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // 로그인이 되어있을 시,
+
         FirebaseUser currentUser = auth.getCurrentUser();
         updateUI(currentUser);
+
+        Snackbar.make(findViewById(R.id.loginLayout), "Authentication Successed.", Snackbar.LENGTH_LONG).show();
+
     }
 
     private void updateUI(FirebaseUser user) { //update ui code here
