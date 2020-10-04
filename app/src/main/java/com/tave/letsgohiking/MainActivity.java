@@ -67,6 +67,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MeasureActivity.class);
                 startActivity(intent);
+
+                Intent intent2 = new Intent(MainActivity.this, MyCounterService.class);
+                startService(intent2);
             }
         });
     }
