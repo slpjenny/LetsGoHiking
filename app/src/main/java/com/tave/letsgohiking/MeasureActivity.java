@@ -17,6 +17,7 @@ public class MeasureActivity extends AppCompatActivity {
 
         ImageButton mapBtn = findViewById(R.id.mapBtn);
         ImageButton stopBtn = findViewById(R.id.stopBtn);
+        ImageButton pauseBtn = findViewById(R.id.pauseBtn);
 
         mapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,6 +34,13 @@ public class MeasureActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent2 = new Intent(MeasureActivity.this, MyCounterService.class);
                 stopService(intent2);
+            }
+        });
+
+        pauseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
     }
