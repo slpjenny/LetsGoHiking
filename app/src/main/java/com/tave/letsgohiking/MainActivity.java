@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -23,15 +24,18 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.NaverMapOptions;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
+import com.naver.maps.map.overlay.PolylineOverlay;
 import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
 
@@ -49,6 +53,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private Location lastLocation;
     private long minTime;
+
+    public ArrayList<double[]> list = new ArrayList<double[]>();
+    //public int size=list.size() - 1;
+    PolylineOverlay path = new PolylineOverlay();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         String[] permissions = {
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 //Manifest.permission.ACCESS_BACKGROUND_LOCATION
-    };
+        };
 
         //checkPermissions(permissions);
     }
@@ -164,24 +172,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         LocationManager manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
         try {
-        Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if(location != null) {
-            double latitude = location.getLatitude();
-            double longitude = location.getLongitude();
-            Log.d("Map", "최근 위치-> Latitude: "+ latitude + "Longitude: " + longitude);
-            //lastLocation 시작 위치로 초기화
-            if(lastLocation != null) {
-                lastLocation.setLatitude(latitude);
-                lastLocation.setLongitude(longitude);
+            Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if(location != null) {
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+                Log.d("Map", "최근 위치-> Latitude: "+ latitude + "Longitude: " + longitude);
+                //lastLocation 시작 위치로 초기화
+                if(lastLocation != null) {
+                    lastLocation.setLatitude(latitude);
+                    lastLocation.setLongitude(longitude);
+                }
             }
-        }
 
-        GPSListener gpsListener = new GPSListener();
-        minTime = 1000;
-        float minDistance = 0;
+            GPSListener gpsListener = new GPSListener();
+            minTime = 1000;
+            float minDistance = 0;
 
-        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, gpsListener);
-        Log.d("Map", "내 위치확인 요청함");
+            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, gpsListener);
+            Log.d("Map", "내 위치확인 요청함");
 
         } catch (SecurityException e) {
             e.printStackTrace();
@@ -195,6 +203,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             Log.d("Map", "바뀐 위치-> Latitude: "+ latitude + "Longitude: " + longitude);
             //double mySpeed = location.getSpeed()*3600/1000;
             //Log.d("Map", "현재 속도-> "+mySpeed);
+
+            //list에 위도 경도 삽입하고 로그로 출력하기
+            list.add(new double[]{latitude, longitude});
+            int size=list.size() - 1;
+            Log.d("List", "사이즈는 "+size+"   "+list.get(size)[0]+", "+list.get(size)[1]);
+
+            //지도에 경로 표시
+            path.setCoords(Arrays.asList(
+                    new LatLng(37.568003, 126.9772503),
+                    new LatLng(37.5701573, 126.9772503),
+                    new LatLng(37.5701573, 126.9793745)
+            ));
+            path.setWidth(20);
+            path.setColor(Color.MAGENTA);
+            path.setMap(naverMap);
 
             //lastLocation과 location 사이 거리 측정과 속도 측정
             double distance;
@@ -239,4 +262,3 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         ActivityCompat.requestPermissions(this, targets, 1000);
     }
 }
-
