@@ -36,6 +36,7 @@ import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
 
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public ArrayList<double[]> list = new ArrayList<double[]>();
     //public int size=list.size() - 1;
     PolylineOverlay path = new PolylineOverlay();
+
+    public List<LatLng> placeList=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         };
 
         //checkPermissions(permissions);
+
     }
 
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -182,6 +186,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     lastLocation.setLatitude(latitude);
                     lastLocation.setLongitude(longitude);
                 }
+                //초기 위치를 placeList 배열에 저장
+                placeList.add(new LatLng(latitude, longitude));
+                placeList.add(new LatLng(latitude, longitude));
             }
 
             GPSListener gpsListener = new GPSListener();
@@ -204,20 +211,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             //double mySpeed = location.getSpeed()*3600/1000;
             //Log.d("Map", "현재 속도-> "+mySpeed);
 
-            //list에 위도 경도 삽입하고 로그로 출력하기
-            list.add(new double[]{latitude, longitude});
-            int size=list.size() - 1;
-            Log.d("List", "사이즈는 "+size+"   "+list.get(size)[0]+", "+list.get(size)[1]);
 
             //지도에 경로 표시
-            path.setCoords(Arrays.asList(
-                    new LatLng(37.568003, 126.9772503),
-                    new LatLng(37.5701573, 126.9772503),
-                    new LatLng(37.5701573, 126.9793745)
-            ));
+            placeList.add(new LatLng(latitude, longitude));
+            path.setCoords(placeList);
+
             path.setWidth(20);
             path.setColor(Color.MAGENTA);
             path.setMap(naverMap);
+
 
             //lastLocation과 location 사이 거리 측정과 속도 측정
             double distance;
