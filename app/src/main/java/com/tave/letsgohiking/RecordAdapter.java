@@ -12,43 +12,45 @@ import java.util.ArrayList;
 
 public class RecordAdapter extends  RecyclerView.Adapter<RecordAdapter.ViewHolder> {
 
-    ArrayList<recordObject> items = new ArrayList<recordObject>();
+    ArrayList<recordObject> items= new ArrayList<recordObject>();
 
-    public void addItem(recordObject item) {
+//    public RecordAdapter(ArrayList<recordObject> list){
+//        this.items = list;
+//    }
+
+    public void add(recordObject item) {
         items.add(item);
-    }
-
-    public void setItems(ArrayList<recordObject> items) {
-        this.items = items;
-    }
-
-    public recordObject getItem(int position) {
-        return items.get(position);
-    }
-
-    public void setItem(int position, recordObject item) {
-        items.set(position, item);
+//        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
+
+    //화면 최초 로딩하고, xml파일 inflate+ViewHolder 생성
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.record_item, parent, false);
-
         return new RecordAdapter.ViewHolder(itemView);
+    }
+
+    @Override
+    public int getItemCount() {
+        return items.size();
+    }
+
+    public ArrayList<recordObject> getListData(){
+        return items;
+    }
+
+    public void setListData(ArrayList<recordObject> listData){
+        this.items= listData;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         recordObject item = items.get(position);
         holder.setItem(item);
-    }
-
-    @Override
-    public int getItemCount() {
-        return items.size();
     }
 
 
@@ -69,7 +71,6 @@ public class RecordAdapter extends  RecyclerView.Adapter<RecordAdapter.ViewHolde
 
             //viewholder 안에서 전달받은 뷰를 클릭했을떄~ listener쪽으로 전달할 수 있다.
             //각각의item뷰가 클릭되었을때~ 인터페이스로 만든 함수 호출
-
         }
 
         public void setItem(recordObject item) {
@@ -77,9 +78,21 @@ public class RecordAdapter extends  RecyclerView.Adapter<RecordAdapter.ViewHolde
             textView_title.setText(item.getTitle());
             textView_length.setText(item.getLength());
             textView_time.setText(item.getTime());
-
         }
 
+    }
+
+
+    public void setItems(ArrayList<recordObject> items) {
+        this.items = items;
+    }
+
+    public recordObject getItem(int position) {
+        return items.get(position);
+    }
+
+    public void setItem(int position, recordObject item) {
+        items.set(position, item);
     }
 
 }
