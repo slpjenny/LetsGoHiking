@@ -21,7 +21,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
-import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.NaverMapOptions;
 import com.naver.maps.map.OnMapReadyCallback;
@@ -39,8 +38,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private badgeFragment badgeFragment = new badgeFragment();
     private SettingFragment settingFragment = new SettingFragment();
     private MapFragment mapFragment = new MapFragment();
-    private RunMapFragment runMapFragment = new RunMapFragment();
-
 
     private Button startBtn;
 
@@ -57,9 +54,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
-
-//        mapView=findViewById(R.id.map_view);
-//        mapView.onCreate(savedInstanceState);
 
         mapFragment.getMapAsync(this);
         locationSource =  new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
@@ -78,10 +72,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startService(intent2);
             }
         });
-
-
-
-
     }
 
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -140,7 +130,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         UiSettings uiSettings = naverMap.getUiSettings();
         uiSettings.setLocationButtonEnabled(true);
     }
-
     //현재 위치에 대한 위도, 경도 정보 받기
     public void startLocationService() {
         LocationManager manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
