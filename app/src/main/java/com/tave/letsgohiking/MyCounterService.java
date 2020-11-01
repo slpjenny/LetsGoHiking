@@ -13,7 +13,7 @@ public class MyCounterService extends Service {
     public MyCounterService() {
     }
 
-    private int count;
+    private int count;//
 
     @Override
     public void onCreate() {

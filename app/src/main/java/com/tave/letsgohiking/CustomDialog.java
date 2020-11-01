@@ -12,7 +12,11 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import static com.tave.letsgohiking.recordFragment.adapter;
 //import static com.tave.letsgohiking.recordFragment.itemList;
@@ -49,16 +53,19 @@ public class CustomDialog {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //다이얼로그로 저장한 제목이름 string으로 받아오기
                 String recordtitle = recordTitle.getText().toString();
 
-                recordObject saveRecordItems= new recordObject("2020/10/10",recordtitle,"5km"," 3:55");
+                //현재 날짜 출력
+                Date currentDate= Calendar.getInstance().getTime();
+                String date_text= new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(currentDate);
+
+                recordObject saveRecordItems= new recordObject(date_text,recordtitle,"5km"," 3:55");
                 adapter.add(saveRecordItems);
 
                 Toast.makeText(context, "기록을 저장했습니다.", Toast.LENGTH_SHORT).show();
 
-//                Log.d("list", String.valueOf(itemList.size()));
-
-                // 커스텀 다이얼로그를 종료한다.
+                // 커스텀 다이얼로그를 종료.
                 mydlg.dismiss();
             }
         });

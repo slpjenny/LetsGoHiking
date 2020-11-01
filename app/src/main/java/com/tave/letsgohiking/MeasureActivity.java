@@ -35,7 +35,7 @@ public class MeasureActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent2 = new Intent(MeasureActivity.this, MyCounterService.class);
-                stopService(intent2); //? 값 넘어간거 맞나?
+                stopService(intent2);
 
                 //내가 만든 커스텀 다이얼로그 클래스를 이용해 다이얼로그 생성하기
                 CustomDialog customDialog = new CustomDialog(MeasureActivity.this);

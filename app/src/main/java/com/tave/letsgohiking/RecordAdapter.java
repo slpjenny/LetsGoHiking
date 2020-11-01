@@ -14,13 +14,8 @@ public class RecordAdapter extends  RecyclerView.Adapter<RecordAdapter.ViewHolde
 
     ArrayList<recordObject> items= new ArrayList<recordObject>();
 
-//    public RecordAdapter(ArrayList<recordObject> list){
-//        this.items = list;
-//    }
-
     public void add(recordObject item) {
         items.add(item);
-//        notifyDataSetChanged();
     }
 
     @NonNull
@@ -52,7 +47,6 @@ public class RecordAdapter extends  RecyclerView.Adapter<RecordAdapter.ViewHolde
         recordObject item = items.get(position);
         holder.setItem(item);
     }
-
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView_date;

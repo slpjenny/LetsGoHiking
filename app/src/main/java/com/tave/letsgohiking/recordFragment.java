@@ -33,12 +33,16 @@ public class recordFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //총 러닝기록 횟수 가져오기
+//        RecordAdapter.getItemCount();
+//        String recordNum=
+
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext())); //이거 없애면 리싸이클러뷰 안나타남.
         recyclerView.setHasFixedSize(true);
 
         adapter.notifyDataSetChanged();
-        recyclerView.setAdapter(adapter);   //왜 아이템이 하나만 나오냐고....-> 다음 페이지에 있었음.
+        recyclerView.setAdapter(adapter);
 
 
     }
