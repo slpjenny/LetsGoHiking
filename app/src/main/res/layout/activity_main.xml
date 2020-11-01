@@ -19,7 +19,7 @@
             android:layout_height="124dp"
             android:layout_gravity="center"
             android:layout_marginTop="250dp"
-            android:background="@drawable/start2" />
+            android:background="@drawable/start_image" />
 
 
 

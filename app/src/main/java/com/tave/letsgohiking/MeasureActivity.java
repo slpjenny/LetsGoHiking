@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,9 +19,9 @@ public class MeasureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_measure);
 
-        ImageButton mapBtn = findViewById(R.id.mapBtn);
-        ImageButton stopBtn = findViewById(R.id.stopBtn);
-        ImageButton pauseBtn = findViewById(R.id.pauseBtn);
+        Button mapBtn = findViewById(R.id.mapBtn);
+        Button stopBtn = findViewById(R.id.stopBtn);
+        //ImageButton pauseBtn = findViewById(R.id.pauseBtn);
 
         mapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,16 +46,16 @@ public class MeasureActivity extends AppCompatActivity {
                 //커스텀 다이얼로그의 결과를 출력할 TEXTVIEW를 매개변수로 같이 넘겨준다 -> 기록 저장 액티비티에서 이루어져야 함.
                 customDialog.callFunction();
 
-
+                MainActivity.startBtn.setBackgroundResource(R.drawable.start_image);
             }
         });
 
-        pauseBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+//        pauseBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
     }
 
 }

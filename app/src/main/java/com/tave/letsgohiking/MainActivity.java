@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private SettingFragment settingFragment = new SettingFragment();
     private MapFragment mapFragment = new MapFragment();
 
-    private Button startBtn;
+    static public Button startBtn;
 
     private Location lastLocation;
     private long minTime;
@@ -88,6 +89,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 Intent serviceIntent = new Intent(getApplicationContext(), MyGPSService.class);
                 startService(serviceIntent);
+                startBtn.setBackgroundResource(R.drawable.runner_image);
+                //startBtn.setVisibility(View.INVISIBLE);
+//                Drawable finish_image = findViewById(R.drawable.finish_image);
+//                startBtn.setBackground(finish_image);
+
             }
         });
 
