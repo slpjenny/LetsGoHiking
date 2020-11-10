@@ -26,7 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20sp"
         android:background="#00ff0000"
-        android:text="로그아웃" />
+        android:text="로그아웃"
+        android:textSize="25dp"/>
 
     <View
         android:layout_width="match_parent"
@@ -39,6 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#00ff0000"
-        android:text="회원 탈퇴" />
+        android:text="회원 탈퇴"
+        android:textSize="25dp"/>
 </LinearLayout>
 
