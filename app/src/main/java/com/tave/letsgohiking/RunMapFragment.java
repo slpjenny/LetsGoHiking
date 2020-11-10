@@ -29,9 +29,7 @@ public class RunMapFragment extends Fragment implements OnMapReadyCallback {
 
         View rootView = inflater.inflate(R.layout.fragment_runmap, container, false);
 
-        Log.d("check","fragment의 onCreateView가 호출되었습니다.");
-
-//        locationSource =  new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
+//        Log.d("check","fragment의 onCreateView가 호출되었습니다.");
 
         return rootView;
     }
