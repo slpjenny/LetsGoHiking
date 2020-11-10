@@ -8,12 +8,11 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Binder;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-public class MyGPSService extends Service {
+public class MyService extends Service {
     private final IBinder mBinder = new MyBinder();
 
     private Location lastLocation;
@@ -21,10 +20,12 @@ public class MyGPSService extends Service {
     private long minTime;
     private double speed;
     private int pace;
+    private int count;
+    private boolean isStop;
 
     class MyBinder extends Binder {
-        MyGPSService getService() {
-            return MyGPSService.this;
+        MyService getService() {
+            return MyService.this;
         }
     }
 
@@ -40,6 +41,8 @@ public class MyGPSService extends Service {
         super.onCreate();
         Log.d("Service", "서비스 시작");
         startLocationService();
+        Thread counter=new Thread(new Counter());
+        counter.start();
     }
 
     //onStartCommand: 서비스가 실행될때 마다 실행되는 메서드
@@ -53,7 +56,13 @@ public class MyGPSService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    public MyGPSService() { }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        isStop=true;
+    }
+
+    public MyService() { }
 
     //현재 위치에 대한 위도, 경도 정보 받기
     public void startLocationService() {
@@ -113,6 +122,42 @@ public class MyGPSService extends Service {
         public void onStatusChanged(String provider, int status, Bundle extras) { }
     }
 
+    private class Counter implements Runnable {
+        private Handler handler=new Handler();
+
+        @Override
+        public void run(){
+            for (count=0; ; count++){
+                if (isStop){
+                    break;
+                }
+
+                handler.post(new Runnable(){
+                    @Override
+                    public void run() {
+                        //Toast.makeText(getApplicationContext(), count+"", Toast.LENGTH_SHORT).show();
+                        Log.d("COUNT", count+"");
+                    }
+                });
+
+                try{
+                    Thread.sleep(1000);
+                } catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+
+            handler.post(new Runnable(){
+                @Override
+                public void run() {
+                    //Toast.makeText(getApplicationContext(), "서비스 종료", Toast.LENGTH_SHORT).show();
+                    Log.d("End", "서비스 종료");
+                }
+            });
+        }
+
+    }
+
     Location getLastLocation() {
         return lastLocation;
     }
@@ -128,4 +173,6 @@ public class MyGPSService extends Service {
     int getPace() {
         return pace;
     }
+
+    int getCount() { return count; }
 }

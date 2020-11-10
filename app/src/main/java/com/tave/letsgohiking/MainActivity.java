@@ -82,13 +82,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MeasureActivity.class);
+
                 startActivity(intent);
 
-                Intent intent2 = new Intent(MainActivity.this, MyCounterService.class);
-                startService(intent2);
-
-                //Intent serviceIntent = new Intent(getApplicationContext(), MyGPSService.class);
-                //startService(serviceIntent);
                 startBtn.setBackgroundResource(R.drawable.runner_image);
                 //startBtn.setVisibility(View.INVISIBLE);
 //                Drawable finish_image = findViewById(R.drawable.finish_image);

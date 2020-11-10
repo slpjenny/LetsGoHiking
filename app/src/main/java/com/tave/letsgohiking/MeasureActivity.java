@@ -2,7 +2,6 @@ package com.tave.letsgohiking;
 
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.location.Location;
@@ -12,18 +11,20 @@ import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.naver.maps.geometry.LatLng;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MeasureActivity extends AppCompatActivity {
 
-    MyGPSService myGPSService;
+    MyService myService;
     boolean isService = false; //서비스 중인 확인용용
 
     private Handler handler;
@@ -36,6 +37,9 @@ public class MeasureActivity extends AppCompatActivity {
     private long minTime;
     private double speed;
     private int pace;
+    private int count;
+
+    private List<LatLng> placeList=new ArrayList<>();
 
 
     @Override
@@ -47,7 +51,7 @@ public class MeasureActivity extends AppCompatActivity {
         Button stopBtn = findViewById(R.id.stopBtn);
         //ImageButton pauseBtn = findViewById(R.id.pauseBtn);
 
-       Intent intent = new Intent(MeasureActivity.this, MyGPSService.class);
+       Intent intent = new Intent(MeasureActivity.this, MyService.class);
        bindService(intent, conn, Context.BIND_AUTO_CREATE); //MyGPSService와 연결
 
         mapBtn.setOnClickListener(new View.OnClickListener() {
@@ -63,8 +67,6 @@ public class MeasureActivity extends AppCompatActivity {
         stopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent2 = new Intent(MeasureActivity.this, MyCounterService.class);
-                stopService(intent2);
 
                 //내가 만든 커스텀 다이얼로그 클래스를 이용해 다이얼로그 생성하기
                 CustomDialog customDialog = new CustomDialog(MeasureActivity.this);
@@ -91,22 +93,26 @@ public class MeasureActivity extends AppCompatActivity {
             public void run() {
                 handler.post(new Runnable(){
                     public void run(){
-                        if(myGPSService!=null) {
-                            distance = myGPSService.getDistance();
-                            lastLocation = myGPSService.getLastLocation();
-                            speed = myGPSService.getSpeed();
-                            pace = myGPSService.getPace();
+                        if(myService !=null) {
+                            distance = myService.getDistance();
+                            lastLocation = myService.getLastLocation();
+                            speed = myService.getSpeed();
+                            pace = myService.getPace();
                             if(lastLocation!=null) {
                                 latitude = lastLocation.getLatitude();
                                 longitude = lastLocation.getLongitude();
                             }
+                            count = myService.getCount();
                         }
                         Log.d("Measure", "위도: "+latitude+"경도: "+longitude);
                         Log.d("Measure", "pace: "+pace);
+                        Log.d("Measure", "count: "+count);
                     }
                 });
             }
         }, 0, 1000); //시작지연시간 0, 주기 1초
+
+
 
 //        pauseBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -120,8 +126,8 @@ public class MeasureActivity extends AppCompatActivity {
         public void onServiceConnected(ComponentName name, IBinder service) {
             // 서비스와 연결되었을 때 호출되는 메서드
             // 서비스 객체를 전역변수로 저장
-            MyGPSService.MyBinder mb = (MyGPSService.MyBinder) service;
-            myGPSService = mb.getService(); // 서비스가 제공하는 메소드를 호출하여 서비스쪽 객체를 전달받을수 있음
+            MyService.MyBinder mb = (MyService.MyBinder) service;
+            myService = mb.getService(); // 서비스가 제공하는 메소드를 호출하여 서비스쪽 객체를 전달받을수 있음
             isService = true;
         }
 
