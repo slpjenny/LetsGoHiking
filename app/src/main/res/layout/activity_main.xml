@@ -31,6 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.1"
         app:itemBackground="@color/common_google_signin_btn_text_dark_pressed"
+        app:itemIconTint="@drawable/menu_selector_color"
+        app:itemTextColor="#000000"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_menu" />
 
