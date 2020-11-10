@@ -12,7 +12,7 @@
         android:textColor="#ffffff"
         android:textSize="16dp"
         android:text="러닝 기록을 저장합니다"
-        android:background="#A3B6C5"/>
+        android:background="#4051BF"/>
 
     <View
         android:layout_width="match_parent"

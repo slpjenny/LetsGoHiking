@@ -20,15 +20,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <service
-            android:name=".MyGPSService"
+            android:name=".MyService"
             android:enabled="true"
             android:exported="true"
             android:foregroundServiceType="location" >
         </service>
-        <service
-            android:name=".MyCounterService"
-            android:enabled="true"
-            android:exported="true" />
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
