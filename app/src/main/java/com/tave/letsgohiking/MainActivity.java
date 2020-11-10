@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Intent intent2 = new Intent(MainActivity.this, MyCounterService.class);
                 startService(intent2);
 
-                Intent serviceIntent = new Intent(getApplicationContext(), MyGPSService.class);
-                startService(serviceIntent);
+                //Intent serviceIntent = new Intent(getApplicationContext(), MyGPSService.class);
+                //startService(serviceIntent);
                 startBtn.setBackgroundResource(R.drawable.runner_image);
                 //startBtn.setVisibility(View.INVISIBLE);
 //                Drawable finish_image = findViewById(R.drawable.finish_image);

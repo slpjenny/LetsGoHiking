@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -13,15 +14,32 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 public class MyGPSService extends Service {
+    private final IBinder mBinder = new MyBinder();
 
     private Location lastLocation;
+    private double distance;
     private long minTime;
+    private double speed;
+    private int pace;
+
+    class MyBinder extends Binder {
+        MyGPSService getService() {
+            return MyGPSService.this;
+        }
+    }
+
+    // 액티비티에서 bindService()를 실행하면 호출됨
+    // return한 IBinder 객체는 서비스와 클라이언트 사이의 인터페이스를 정의한다.
+    @Override
+    public IBinder onBind(Intent intent) {
+        return mBinder; // 서비스 객체를 리턴
+    }
 
     @Override
     public void onCreate() {
-        Log.d("Service", "Start Service");
-
         super.onCreate();
+        Log.d("Service", "서비스 시작");
+        startLocationService();
     }
 
     //onStartCommand: 서비스가 실행될때 마다 실행되는 메서드
@@ -35,14 +53,7 @@ public class MyGPSService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    public MyGPSService() {
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
+    public MyGPSService() { }
 
     //현재 위치에 대한 위도, 경도 정보 받기
     public void startLocationService() {
@@ -82,12 +93,15 @@ public class MyGPSService extends Service {
             //Log.d("Map", "현재 속도-> "+mySpeed);
 
             //lastLocation과 location 사이 거리 측정과 속도 측정
-            double distance;
             if(lastLocation != null) {
                 distance = location.distanceTo(lastLocation);
                 Log.d("Service", "거리: "+distance+"m");
-                double speed = distance / minTime*1000;
-                Log.d("Service", "현재속도: "+speed+"m/s");
+                speed = distance / minTime*1000 / 3600;
+                Log.d("Service", "현재속도: "+speed+"km/s");
+                if(speed == 0)
+                    pace = 0;
+                else
+                    pace =(int)(distance / speed);
             }
             lastLocation = location;
         }
@@ -99,4 +113,19 @@ public class MyGPSService extends Service {
         public void onStatusChanged(String provider, int status, Bundle extras) { }
     }
 
+    Location getLastLocation() {
+        return lastLocation;
+    }
+
+    double getSpeed() {
+        return speed;
+    }
+
+    double getDistance() {
+            return distance;
+    }
+
+    int getPace() {
+        return pace;
+    }
 }
