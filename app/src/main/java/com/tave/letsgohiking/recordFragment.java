@@ -43,12 +43,6 @@ public class recordFragment extends Fragment {
 
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
-
-        //items= recyclerview에 들어가는 아이템 arraylist
-//        int all_runningNum;
-
-
-
     }
 
     //fragment 갱신
@@ -61,12 +55,10 @@ public class recordFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        //setText UI가 업데이트 되지 않고있다.
+        //items= recyclerview에 들어가는 아이템 arraylist
         int all_runningNum = items.size();
         EditText all_Running = getView().findViewById(R.id.all_Running);
         all_Running.setText("총 러닝횟수" + " " + all_runningNum);
-
-        Log.d("runnin", String.valueOf(all_runningNum));
 
     }
 }
