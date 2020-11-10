@@ -8,9 +8,11 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +25,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MeasureActivity extends AppCompatActivity {
+    TextView textView;
 
     MyService myService;
     boolean isService = false; //서비스 중인 확인용용
@@ -41,15 +44,16 @@ public class MeasureActivity extends AppCompatActivity {
 
     private List<LatLng> placeList=new ArrayList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_measure);
 
+        textView=findViewById(R.id.textView11);
         Button mapBtn = findViewById(R.id.mapBtn);
         Button stopBtn = findViewById(R.id.stopBtn);
         //ImageButton pauseBtn = findViewById(R.id.pauseBtn);
+
 
        Intent intent = new Intent(MeasureActivity.this, MyService.class);
        bindService(intent, conn, Context.BIND_AUTO_CREATE); //MyGPSService와 연결
@@ -103,6 +107,7 @@ public class MeasureActivity extends AppCompatActivity {
                                 longitude = lastLocation.getLongitude();
                             }
                             count = myService.getCount();
+                            textView.setText(Integer.toString(count));
                         }
                         Log.d("Measure", "위도: "+latitude+"경도: "+longitude);
                         Log.d("Measure", "pace: "+pace);
@@ -146,4 +151,5 @@ public class MeasureActivity extends AppCompatActivity {
             isService = false;
         }
     }
+
 }
