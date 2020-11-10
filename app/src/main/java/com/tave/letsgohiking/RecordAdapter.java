@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class RecordAdapter extends  RecyclerView.Adapter<RecordAdapter.ViewHolder> {
 
-    ArrayList<recordObject> items= new ArrayList<recordObject>();
+    static ArrayList<recordObject> items= new ArrayList<recordObject>();
 
     public void add(recordObject item) {
         items.add(item);

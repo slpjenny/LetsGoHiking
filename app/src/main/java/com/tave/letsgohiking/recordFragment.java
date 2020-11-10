@@ -12,11 +12,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import static com.tave.letsgohiking.RecordAdapter.items;
 
 
 public class recordFragment extends Fragment {
@@ -27,15 +30,12 @@ public class recordFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_record, container, false);
         return view;
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        //총 러닝기록 횟수 가져오기
-//        RecordAdapter.getItemCount();
-//        String recordNum=
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext())); //이거 없애면 리싸이클러뷰 안나타남.
@@ -44,6 +44,29 @@ public class recordFragment extends Fragment {
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
 
+        //items= recyclerview에 들어가는 아이템 arraylist
+//        int all_runningNum;
+
+
+
+    }
+
+    //fragment 갱신
+    private void refresh(){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.detach(this).attach(this).commit();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        //setText UI가 업데이트 되지 않고있다.
+        int all_runningNum = items.size();
+        EditText all_Running = getView().findViewById(R.id.all_Running);
+        all_Running.setText("총 러닝횟수" + " " + all_runningNum);
+
+        Log.d("runnin", String.valueOf(all_runningNum));
 
     }
 }
