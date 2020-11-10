@@ -75,7 +75,7 @@ public class MeasureActivity extends AppCompatActivity {
                 //커스텀 다이얼로그의 결과를 출력할 TEXTVIEW를 매개변수로 같이 넘겨준다 -> 기록 저장 액티비티에서 이루어져야 함.
                 customDialog.callFunction();
 
-                MainActivity.startBtn.setBackgroundResource(R.drawable.start_image);
+                MainActivity.startBtn.setBackgroundResource(R.drawable.start_button);
 
                 //서비스 종료
                 if(isService) {
