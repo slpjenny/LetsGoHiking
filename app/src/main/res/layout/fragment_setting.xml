@@ -25,9 +25,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20sp"
-        android:background="#00ff0000"
+        android:background="@drawable/logout_border_button"
+        android:fontFamily="@font/batang"
         android:text="로그아웃"
-        android:textSize="25dp"/>
+        android:textSize="25dp" />
 
     <View
         android:layout_width="match_parent"
@@ -39,8 +40,126 @@
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00ff0000"
+        android:background="@drawable/logout_border_button"
+        android:fontFamily="@font/batang"
         android:text="회원 탈퇴"
-        android:textSize="25dp"/>
+        android:textSize="25dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/batang"
+            android:text="개발자 소개"
+            android:textAlignment="center"
+            android:textSize="25dp"></TextView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/developer_textview_border"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/shoe">
+        </ImageView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:fontFamily="@font/batang"
+            android:text="  @jy_s21022"
+            android:gravity="left|center"
+            android:textColor="#070707"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/developer_textview_border"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/shoe">
+        </ImageView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:fontFamily="@font/batang"
+            android:text="  @hoshogiii"
+            android:gravity="left|center"
+            android:textColor="#070707"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/developer_textview_border"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/shoe">
+        </ImageView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:fontFamily="@font/batang"
+            android:text="  @wxx._.zee"
+            android:gravity="left|center"
+            android:textColor="#070707"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/developer_textview_border"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/shoe">
+        </ImageView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:fontFamily="@font/batang"
+            android:text="  @1g1_h"
+            android:textColor="#070707"
+            android:gravity="left|center"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+
 </LinearLayout>
 
