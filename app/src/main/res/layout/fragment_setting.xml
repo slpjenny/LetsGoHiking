@@ -76,12 +76,14 @@
         </ImageView>
 
         <TextView
+            android:id="@+id/jyp"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:fontFamily="@font/batang"
             android:text="  @jy_s21022"
             android:gravity="left|center"
             android:textColor="#070707"
+            android:textColorLink="#070707"
             android:textSize="18dp" />
 
     </LinearLayout>
@@ -101,12 +103,14 @@
         </ImageView>
 
         <TextView
+            android:id="@+id/hsl"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:fontFamily="@font/batang"
             android:text="  @hoshogiii"
             android:gravity="left|center"
             android:textColor="#070707"
+            android:textColorLink="#070707"
             android:textSize="18dp" />
 
     </LinearLayout>
@@ -126,12 +130,14 @@
         </ImageView>
 
         <TextView
+            android:id="@+id/wjc"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:fontFamily="@font/batang"
             android:text="  @wxx._.zee"
             android:gravity="left|center"
             android:textColor="#070707"
+            android:textColorLink="#070707"
             android:textSize="18dp" />
 
     </LinearLayout>
@@ -151,11 +157,13 @@
         </ImageView>
 
         <TextView
+            android:id="@+id/jwh"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:fontFamily="@font/batang"
             android:text="  @1g1_h"
             android:textColor="#070707"
+            android:textColorLink="#070707"
             android:gravity="left|center"
             android:textSize="18dp" />
 

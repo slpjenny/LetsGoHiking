@@ -68,7 +68,7 @@ public class MeasureActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //내가 만든 커스텀 다이얼로그 클래스를 이용해 다이얼로그 생성하기
+                //커스텀 다이얼로그 클래스를 이용해 다이얼로그 생성하기
                 CustomDialog customDialog = new CustomDialog(MeasureActivity.this);
 
                 //커스텀 다이얼로그 호출
