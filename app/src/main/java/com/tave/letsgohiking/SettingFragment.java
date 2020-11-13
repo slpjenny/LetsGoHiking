@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -46,46 +49,27 @@ public class SettingFragment extends Fragment {
             @Override
             public void run() {
                 try{
-
                     URL url = new URL(user.getPhotoUrl().toString());
-
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
                     conn.setDoInput(true);
-
                     conn.connect();
-
-
                     InputStream is = conn.getInputStream();
-
                     bitmap = BitmapFactory.decodeStream(is);
-
                 } catch (MalformedURLException ee) {
-
                     ee.printStackTrace();
-
                 }catch (IOException e){
-
                     e.printStackTrace();
-
                 }
-
             }
         };
 
         mThread.start();
 
-
         try{
-
             mThread.join();
-
             user_profile.setImageBitmap(bitmap);
-
         }catch (InterruptedException e){
-
             e.printStackTrace();
-
         }
 
         // 로그인 정보 textView에 받아오기
@@ -127,8 +111,31 @@ public class SettingFragment extends Fragment {
             }
         });
 
-        return rootView;
+        //인스타그램 아이디에 인스타 링크 걸기
+        TextView jyp_Linkfy=rootView.findViewById(R.id.jyp);
+        TextView hsl_Linkfy=rootView.findViewById(R.id.hsl);
+        TextView wjc_Linkfy=rootView.findViewById(R.id.wjc);
+        TextView jwh_Linkfy=rootView.findViewById(R.id.jwh);
 
+
+        Linkify.TransformFilter mTransform = new Linkify.TransformFilter() {
+            @Override
+            public String transformUrl(Matcher matcher, String url) {
+                return "";
+            }
+        };
+
+        Pattern pattern1 =Pattern.compile("  @jy_s21022");
+        Pattern pattern2 =Pattern.compile("  @hoshogiii");
+        Pattern pattern3 =Pattern.compile("  @wxx._.zee");
+        Pattern pattern4 =Pattern.compile("  @1g1_h");
+
+        Linkify.addLinks(jyp_Linkfy,pattern1,"https://www.instagram.com/jy_s21022/",null,mTransform);
+        Linkify.addLinks(hsl_Linkfy,pattern2,"https://www.instagram.com/hoshogiii/",null,mTransform);
+        Linkify.addLinks(wjc_Linkfy,pattern3,"https://www.instagram.com/wxx._.zee/",null,mTransform);
+        Linkify.addLinks(jwh_Linkfy,pattern4,"https://www.instagram.com/1g1_h/",null,mTransform);
+
+        return rootView;
     }
 
     // 로그아웃
@@ -140,5 +147,7 @@ public class SettingFragment extends Fragment {
     private void revokeAccess() {
         mAuth.getCurrentUser().delete();
     }
+
+
 
 }

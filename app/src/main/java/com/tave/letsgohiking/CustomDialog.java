@@ -2,6 +2,7 @@ package com.tave.letsgohiking;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -67,6 +68,7 @@ public class CustomDialog {
 
                 // 커스텀 다이얼로그를 종료.
                 mydlg.dismiss();
+
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {
