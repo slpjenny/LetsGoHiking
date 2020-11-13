@@ -10,6 +10,7 @@ import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.util.Log;
 
 public class MyService extends Service {

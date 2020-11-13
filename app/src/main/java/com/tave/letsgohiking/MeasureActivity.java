@@ -11,6 +11,7 @@ import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MeasureActivity extends AppCompatActivity {
+    TextView timeTextView; // 소요시간 띄울 TextView
+    TextView distanceTextView; // 거리 띄울 TextView
 
     MyService myService;
     boolean isService = false; //서비스 중인 확인용용
@@ -33,23 +36,29 @@ public class MeasureActivity extends AppCompatActivity {
     private Location lastLocation;
     private double longitude;
     private double latitude;
-    private double distance;
+    private double distance; // 초당 이동 거리
+    private double totalDistance=0; // 누적 이동 거리
     private long minTime;
     private double speed;
     private int pace;
     private int count;
+    private int min;
+    private int sec;
 
     private List<LatLng> placeList=new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_measure);
 
+        timeTextView=findViewById(R.id.time);
+        //distanceTextView=findViewById(R.id.textView12);
+
         Button mapBtn = findViewById(R.id.mapBtn);
         Button stopBtn = findViewById(R.id.stopBtn);
         //ImageButton pauseBtn = findViewById(R.id.pauseBtn);
+
 
        Intent intent = new Intent(MeasureActivity.this, MyService.class);
        bindService(intent, conn, Context.BIND_AUTO_CREATE); //MyGPSService와 연결
@@ -75,7 +84,7 @@ public class MeasureActivity extends AppCompatActivity {
                 //커스텀 다이얼로그의 결과를 출력할 TEXTVIEW를 매개변수로 같이 넘겨준다 -> 기록 저장 액티비티에서 이루어져야 함.
                 customDialog.callFunction();
 
-                MainActivity.startBtn.setBackgroundResource(R.drawable.start_image);
+                MainActivity.startBtn.setBackgroundResource(R.drawable.start_button);
 
                 //서비스 종료
                 if(isService) {
@@ -95,6 +104,9 @@ public class MeasureActivity extends AppCompatActivity {
                     public void run(){
                         if(myService !=null) {
                             distance = myService.getDistance();
+                            totalDistance += distance;
+                            //distanceTextView.setText(Double.toString(totalDistance)+"m");
+
                             lastLocation = myService.getLastLocation();
                             speed = myService.getSpeed();
                             pace = myService.getPace();
@@ -102,7 +114,33 @@ public class MeasureActivity extends AppCompatActivity {
                                 latitude = lastLocation.getLatitude();
                                 longitude = lastLocation.getLongitude();
                             }
+
                             count = myService.getCount();
+                            min = count/60;
+                            sec = count%60;
+
+                            if (min<1){
+                                if (sec<10)
+                                    timeTextView.setText("00:0"+Integer.toString(sec));
+                                else
+                                    timeTextView.setText("00:"+Integer.toString(sec));
+                            }
+
+                            else if (min<10){
+                                if (sec<10)
+                                    timeTextView.setText("0"+Integer.toString(min)+":0"+Integer.toString(sec));
+                                else
+                                    timeTextView.setText("0"+Integer.toString(min)+":"+Integer.toString(sec));
+                            }
+
+                            else if (min<60){
+                                if (sec<10)
+                                    timeTextView.setText(Integer.toString(min)+":0"+Integer.toString(sec));
+                                else
+                                    timeTextView.setText(Integer.toString(min)+":"+Integer.toString(sec));
+                            }
+
+                            //textView.setText(Integer.toString(count));
                         }
                         Log.d("Measure", "위도: "+latitude+"경도: "+longitude);
                         Log.d("Measure", "pace: "+pace);
@@ -146,4 +184,5 @@ public class MeasureActivity extends AppCompatActivity {
             isService = false;
         }
     }
+
 }
