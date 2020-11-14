@@ -36,8 +36,7 @@ public class MeasureActivity extends AppCompatActivity {
     private Location lastLocation;
     private double longitude;
     private double latitude;
-    private double distance; // 초당 이동 거리
-    private double totalDistance=0; // 누적 이동 거리
+    private String distance;
     private long minTime;
     private double speed;
     private int pace;
@@ -53,7 +52,7 @@ public class MeasureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_measure);
 
         timeTextView=findViewById(R.id.time);
-        //distanceTextView=findViewById(R.id.textView12);
+        distanceTextView=findViewById(R.id.totalDistance);
 
         Button mapBtn = findViewById(R.id.mapBtn);
         Button stopBtn = findViewById(R.id.stopBtn);
@@ -103,9 +102,8 @@ public class MeasureActivity extends AppCompatActivity {
                 handler.post(new Runnable(){
                     public void run(){
                         if(myService !=null) {
-                            distance = myService.getDistance();
-                            totalDistance += distance;
-                            //distanceTextView.setText(Double.toString(totalDistance)+"m");
+                            distance = myService.getTotalDistance();
+                            distanceTextView.setText(distance+" KM");
 
                             lastLocation = myService.getLastLocation();
                             speed = myService.getSpeed();

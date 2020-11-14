@@ -17,7 +17,10 @@ public class MyService extends Service {
     private final IBinder mBinder = new MyBinder();
 
     private Location lastLocation;
-    private double distance;
+    private double distance; // 초당 이동 거리
+    private double mTotalDistance=0; // double 누적 이동 거리 (m단위)
+    private double kmTotalDistance; // double 누적 이동 거리 (km단위)
+    private String totalDistance; // String 누적 이동 거리
     private long minTime;
     private double speed;
     private int pace;
@@ -105,6 +108,10 @@ public class MyService extends Service {
             //lastLocation과 location 사이 거리 측정과 속도 측정
             if(lastLocation != null) {
                 distance = location.distanceTo(lastLocation);
+                mTotalDistance += distance;
+                kmTotalDistance = mTotalDistance/1000;
+                totalDistance = String.format("%.2f", kmTotalDistance);
+
                 Log.d("Service", "거리: "+distance+"m");
                 speed = distance / minTime*1000 / 3600;
                 Log.d("Service", "현재속도: "+speed+"km/s");
@@ -167,8 +174,8 @@ public class MyService extends Service {
         return speed;
     }
 
-    double getDistance() {
-            return distance;
+    String getTotalDistance() {
+            return totalDistance;
     }
 
     int getPace() {
