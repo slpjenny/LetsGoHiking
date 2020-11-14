@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.naver.maps.geometry.LatLng;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -69,8 +70,10 @@ public class MeasureActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplication(), MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); //Task 내에 이미 활성화된 activity 를 다시 활성화 할때,
-                                                                        //새로 생성하지 않고 재사용하는 flag
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); //Task 내에 이미 활성화된 activity 를 다시 활성화 할때, 새로 생성하지 않고 재사용하는 flag
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("placeList", (Serializable) placeList);
+                intent.putExtra("bundle", bundle);
                 startActivity(intent);
             }
         });
@@ -116,6 +119,7 @@ public class MeasureActivity extends AppCompatActivity {
                             if(lastLocation!=null) {
                                 latitude = lastLocation.getLatitude();
                                 longitude = lastLocation.getLongitude();
+                                placeList.add(new LatLng(latitude, longitude));
                             }
 
                             count = myService.getCount();
@@ -147,6 +151,7 @@ public class MeasureActivity extends AppCompatActivity {
                         Log.d("Measure", "위도: "+latitude+"경도: "+longitude);
                         Log.d("Measure", "pace: "+pace);
                         Log.d("Measure", "count: "+count);
+                        Log.d("Measure", "distance"+distance);
                     }
                 });
             }

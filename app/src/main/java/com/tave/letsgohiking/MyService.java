@@ -42,7 +42,7 @@ public class MyService extends Service {
         super.onCreate();
         Log.d("Service", "서비스 시작");
         startLocationService();
-        Thread counter=new Thread(new Counter());
+        Thread counter = new Thread(new Counter());
         counter.start();
     }
 
