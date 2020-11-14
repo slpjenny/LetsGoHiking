@@ -13,10 +13,17 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
 
+import com.naver.maps.geometry.LatLng;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyService extends Service {
     private final IBinder mBinder = new MyBinder();
 
     private Location lastLocation;
+    private double latitude;
+    private double longitude;
     private double distance; // 초당 이동 거리
     private double mTotalDistance=0; // double 누적 이동 거리 (m단위)
     private double kmTotalDistance; // double 누적 이동 거리 (km단위)
@@ -26,6 +33,7 @@ public class MyService extends Service {
     private int pace;
     private int count;
     private boolean isStop;
+    private List<LatLng> placeList = new ArrayList<>();
 
     class MyBinder extends Binder {
         MyService getService() {
@@ -77,6 +85,7 @@ public class MyService extends Service {
             if(location != null) {
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
+                placeList.add(new LatLng(latitude, longitude));
                 Log.d("Service", "최근 위치-> Latitude: "+ latitude + "Longitude: " + longitude);
                 //lastLocation 시작 위치로 초기화
                 if(lastLocation != null) {
@@ -99,14 +108,17 @@ public class MyService extends Service {
 
     class GPSListener implements LocationListener {
         public void onLocationChanged(Location location) {
-            double latitude = location.getLatitude();
-            double longitude = location.getLongitude();
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+            placeList.add(new LatLng(latitude, longitude));
+
             Log.d("Service", "바뀐 위치-> Latitude: "+ latitude + "Longitude: " + longitude);
             //double mySpeed = location.getSpeed()*3600/1000;
             //Log.d("Map", "현재 속도-> "+mySpeed);
 
             //lastLocation과 location 사이 거리 측정과 속도 측정
             if(lastLocation != null) {
+
                 distance = location.distanceTo(lastLocation);
                 mTotalDistance += distance;
                 kmTotalDistance = mTotalDistance/1000;
@@ -183,4 +195,6 @@ public class MyService extends Service {
     }
 
     int getCount() { return count; }
+
+    ArrayList<LatLng> getList() {return (ArrayList<LatLng>) placeList; }
 }
