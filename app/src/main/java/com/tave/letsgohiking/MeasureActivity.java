@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.naver.maps.geometry.LatLng;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -36,8 +37,7 @@ public class MeasureActivity extends AppCompatActivity {
     private Location lastLocation;
     private double longitude;
     private double latitude;
-    private double distance; // 초당 이동 거리
-    private double totalDistance=0; // 누적 이동 거리
+    public static String finalDistance;
     private long minTime;
     private double speed;
     private int pace;
@@ -55,7 +55,7 @@ public class MeasureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_measure);
 
         timeTextView=findViewById(R.id.time);
-        //distanceTextView=findViewById(R.id.textView12);
+        distanceTextView=findViewById(R.id.totalDistance);
 
         Button mapBtn = findViewById(R.id.mapBtn);
         Button stopBtn = findViewById(R.id.stopBtn);
@@ -69,8 +69,10 @@ public class MeasureActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplication(), MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); //Task 내에 이미 활성화된 activity 를 다시 활성화 할때,
-                                                                        //새로 생성하지 않고 재사용하는 flag
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); //Task 내에 이미 활성화된 activity 를 다시 활성화 할때, 새로 생성하지 않고 재사용하는 flag
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("placeList", (Serializable) placeList);
+                intent.putExtra("bundle", bundle);
                 startActivity(intent);
             }
         });
@@ -106,17 +108,20 @@ public class MeasureActivity extends AppCompatActivity {
                 handler.post(new Runnable(){
                     public void run(){
                         if(myService !=null) {
-                            distance = myService.getDistance();
-                            totalDistance += distance;
-                            //distanceTextView.setText(Double.toString(totalDistance)+"m");
+                            finalDistance = myService.getTotalDistance();
+                            distanceTextView.setText(finalDistance+" KM");
 
                             lastLocation = myService.getLastLocation();
                             speed = myService.getSpeed();
                             pace = myService.getPace();
-                            if(lastLocation!=null) {
+
+                                /*
                                 latitude = lastLocation.getLatitude();
                                 longitude = lastLocation.getLongitude();
-                            }
+                                placeList.add(new LatLng(latitude, longitude));
+
+                                 */
+                            placeList = myService.getList();
 
                             count = myService.getCount();
                             min = count/60;
@@ -144,9 +149,10 @@ public class MeasureActivity extends AppCompatActivity {
                             }
                             //textView.setText(Integer.toString(count));
                         }
-                        Log.d("Measure", "위도: "+latitude+"경도: "+longitude);
-                        Log.d("Measure", "pace: "+pace);
-                        Log.d("Measure", "count: "+count);
+                        //Log.d("Measure", "위도: "+latitude+"경도: "+longitude);
+                        //Log.d("Measure", "pace: "+pace);
+                        //Log.d("Measure", "count: "+count);
+                        //Log.d("Measure", "distance"+);
                     }
                 });
             }
