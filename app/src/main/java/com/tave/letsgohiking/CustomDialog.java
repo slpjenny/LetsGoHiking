@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import static com.tave.letsgohiking.MeasureActivity.leadTime;
+import static com.tave.letsgohiking.MeasureActivity.finalDistance;
 import static com.tave.letsgohiking.recordFragment.adapter;
 //import static com.tave.letsgohiking.recordFragment.itemList;
 
@@ -65,7 +66,7 @@ public class CustomDialog {
                 //소요 시간 정보 받아서 String으로 저장하기.
 
                 //record_item 날짜,제목 초기화 완료
-                recordObject saveRecordItems= new recordObject(date_text,recordtitle,"5km",leadTime);
+                recordObject saveRecordItems= new recordObject(date_text,recordtitle,finalDistance,leadTime);
                 adapter.add(saveRecordItems);
 
                 Toast.makeText(context, "기록을 저장했습니다.", Toast.LENGTH_SHORT).show();
