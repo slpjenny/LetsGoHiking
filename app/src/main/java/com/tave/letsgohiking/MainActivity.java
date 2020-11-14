@@ -89,13 +89,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MeasureActivity.class);
-
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
 
                 startBtn.setBackgroundResource(R.drawable.runner_image);
                 //startBtn.setVisibility(View.INVISIBLE);
-//                Drawable finish_image = findViewById(R.drawable.finish_image);
-//                startBtn.setBackground(finish_image);
+                //               Drawable finish_image = findViewById(R.drawable.finish_image);
+                //                startBtn.setBackground(finish_image);
 
             }
         });
@@ -109,13 +109,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //checkPermissions(permissions);
     }
 
-    class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
+    class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-            switch(menuItem.getItemId())
-            {
+            switch (menuItem.getItemId()) {
                 case R.id.homeItem:
                     transaction.replace(R.id.frameLayout, mapFragment).commitAllowingStateLoss();
                     startBtn.setVisibility(View.VISIBLE);
@@ -193,8 +192,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     lastLocation.setLongitude(longitude);
                 }
                 //초기 위치를 placeList 배열에 저장
-                placeList.add(new LatLng(latitude, longitude));
-                placeList.add(new LatLng(latitude, longitude));
+                //placeList.add(new LatLng(latitude, longitude));
+                //placeList.add(new LatLng(latitude, longitude));
             }
 
             GPSListener gpsListener = new GPSListener();
@@ -219,13 +218,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
             //지도에 경로 표시
-            placeList.add(new LatLng(latitude, longitude));
+            //placeList.add(new LatLng(latitude, longitude));
+            /*
             path.setCoords(placeList);
 
             path.setWidth(20);
             path.setColor(Color.MAGENTA);
             path.setMap(naverMap);
-
+             */
 
             //lastLocation과 location 사이 거리 측정과 속도 측정
             double distance;
@@ -268,5 +268,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         ActivityCompat.requestPermissions(this, targets, 101);
         ActivityCompat.requestPermissions(this, targets, 1000);
+    }
+
+    //MeasureActivity에서 보낸 위치 정보 ArrayList 받기
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        Bundle bundle;
+        bundle=intent.getBundleExtra("bundle");
+        placeList = (ArrayList<LatLng>)bundle.getSerializable("placeList");
+
+        path.setCoords(placeList);
+
+        path.setWidth(20);
+        path.setColor(Color.MAGENTA);
+        path.setMap(naverMap);
     }
 }

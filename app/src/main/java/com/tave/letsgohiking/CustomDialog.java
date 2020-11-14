@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static com.tave.letsgohiking.MeasureActivity.leadTime;
 import static com.tave.letsgohiking.recordFragment.adapter;
 //import static com.tave.letsgohiking.recordFragment.itemList;
 
@@ -57,11 +58,14 @@ public class CustomDialog {
                 //다이얼로그로 저장한 제목이름 string으로 받아오기
                 String recordtitle = recordTitle.getText().toString();
 
-                //현재 날짜 출력
+                //현재 날짜로 기록 저장
                 Date currentDate= Calendar.getInstance().getTime();
                 String date_text= new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(currentDate);
 
-                recordObject saveRecordItems= new recordObject(date_text,recordtitle,"5km"," 3:55");
+                //소요 시간 정보 받아서 String으로 저장하기.
+
+                //record_item 날짜,제목 초기화 완료
+                recordObject saveRecordItems= new recordObject(date_text,recordtitle,"5km",leadTime);
                 adapter.add(saveRecordItems);
 
                 Toast.makeText(context, "기록을 저장했습니다.", Toast.LENGTH_SHORT).show();
