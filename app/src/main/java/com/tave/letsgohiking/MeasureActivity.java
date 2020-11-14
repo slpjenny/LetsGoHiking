@@ -114,14 +114,11 @@ public class MeasureActivity extends AppCompatActivity {
                             lastLocation = myService.getLastLocation();
                             speed = myService.getSpeed();
                             pace = myService.getPace();
-
-                                /*
+                ;            if(lastLocation!=null) {
                                 latitude = lastLocation.getLatitude();
                                 longitude = lastLocation.getLongitude();
                                 placeList.add(new LatLng(latitude, longitude));
-
-                                 */
-                            placeList = myService.getList();
+                            }
 
                             count = myService.getCount();
                             min = count/60;
