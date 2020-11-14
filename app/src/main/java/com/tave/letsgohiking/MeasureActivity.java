@@ -37,7 +37,7 @@ public class MeasureActivity extends AppCompatActivity {
     private Location lastLocation;
     private double longitude;
     private double latitude;
-    private String distance;
+    public static String finalDistance;
     private long minTime;
     private double speed;
     private int pace;
@@ -108,8 +108,8 @@ public class MeasureActivity extends AppCompatActivity {
                 handler.post(new Runnable(){
                     public void run(){
                         if(myService !=null) {
-                            distance = myService.getTotalDistance();
-                            distanceTextView.setText(distance+" KM");
+                            finalDistance = myService.getTotalDistance();
+                            distanceTextView.setText(finalDistance+" KM");
 
                             lastLocation = myService.getLastLocation();
                             speed = myService.getSpeed();
@@ -149,10 +149,10 @@ public class MeasureActivity extends AppCompatActivity {
                             }
                             //textView.setText(Integer.toString(count));
                         }
-                        Log.d("Measure", "위도: "+latitude+"경도: "+longitude);
-                        Log.d("Measure", "pace: "+pace);
-                        Log.d("Measure", "count: "+count);
-                        Log.d("Measure", "distance"+distance);
+                        //Log.d("Measure", "위도: "+latitude+"경도: "+longitude);
+                        //Log.d("Measure", "pace: "+pace);
+                        //Log.d("Measure", "count: "+count);
+                        //Log.d("Measure", "distance"+);
                     }
                 });
             }
