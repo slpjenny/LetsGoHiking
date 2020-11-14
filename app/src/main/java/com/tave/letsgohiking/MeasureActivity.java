@@ -47,6 +47,8 @@ public class MeasureActivity extends AppCompatActivity {
 
     private List<LatLng> placeList=new ArrayList<>();
 
+    public static String leadTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +79,7 @@ public class MeasureActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                leadTime=timeTextView.getText().toString();
                 //커스텀 다이얼로그 클래스를 이용해 다이얼로그 생성하기
                 CustomDialog customDialog = new CustomDialog(MeasureActivity.this);
 
@@ -139,7 +142,6 @@ public class MeasureActivity extends AppCompatActivity {
                                 else
                                     timeTextView.setText(Integer.toString(min)+":"+Integer.toString(sec));
                             }
-
                             //textView.setText(Integer.toString(count));
                         }
                         Log.d("Measure", "위도: "+latitude+"경도: "+longitude);
@@ -149,6 +151,8 @@ public class MeasureActivity extends AppCompatActivity {
                 });
             }
         }, 0, 1000); //시작지연시간 0, 주기 1초
+
+
 
 
 
