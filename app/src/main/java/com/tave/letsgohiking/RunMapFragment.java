@@ -47,7 +47,7 @@ public class RunMapFragment extends Fragment implements OnMapReadyCallback {
     private Location lastLocation;
     private long minTime;
 
-    PolylineOverlay path = new PolylineOverlay();
+    //PolylineOverlay path = new PolylineOverlay();
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
