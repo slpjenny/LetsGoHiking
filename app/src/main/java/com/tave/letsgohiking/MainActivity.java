@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private recordFragment recordFragment = new recordFragment();
     private badgeFragment badgeFragment = new badgeFragment();
     private SettingFragment settingFragment = new SettingFragment();
+//    private RunMapFragment runmapFragment = new RunMapFragment();
     private MapFragment mapFragment = new MapFragment();
 
     static public Button startBtn;
@@ -119,6 +120,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 case R.id.homeItem:
                     transaction.replace(R.id.frameLayout, mapFragment).commitAllowingStateLoss();
                     startBtn.setVisibility(View.VISIBLE);
+
+                    //fragment 갱신
+                    FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
+                    transaction1.detach(mapFragment).attach(mapFragment).commit();
+
                     break;
                 case R.id.recordItem:
                     transaction.replace(R.id.frameLayout, recordFragment).commitAllowingStateLoss();
@@ -217,15 +223,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             //double mySpeed = location.getSpeed()*3600/1000;
             //Log.d("Map", "현재 속도-> "+mySpeed);
 
-
             //지도에 경로 표시
             placeList.add(new LatLng(latitude, longitude));
             path.setCoords(placeList);
-
             path.setWidth(20);
             path.setColor(Color.MAGENTA);
             path.setMap(naverMap);
-
 
             //lastLocation과 location 사이 거리 측정과 속도 측정
             double distance;
@@ -239,9 +242,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         public void onProviderDisabled(String provider) { }
-
         public void onProviderEnabled(String provider) { }
-
         public void onStatusChanged(String provider, int status, Bundle extras) { }
     }
 
@@ -269,4 +270,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         ActivityCompat.requestPermissions(this, targets, 101);
         ActivityCompat.requestPermissions(this, targets, 1000);
     }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+
+    }
+
 }

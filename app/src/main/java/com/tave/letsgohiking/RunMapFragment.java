@@ -17,9 +17,10 @@ import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.util.FusedLocationSource;
 
 
+
 //이 fragment에서 현위치 버튼이 활성화되도록 해야 함.
 
-public class RunMapFragment extends Fragment implements OnMapReadyCallback {
+public class RunMapFragment extends Fragment {
 
     public NaverMap naverMap;
     private FusedLocationSource locationSource;
@@ -28,23 +29,9 @@ public class RunMapFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_runmap, container, false);
-
-//        Log.d("check","fragment의 onCreateView가 호출되었습니다.");
-
         return rootView;
     }
 
-    public void onMapReady(@NonNull NaverMap naverMap) {
-        this.naverMap = naverMap;
-        naverMap.setLocationSource(locationSource);
-        naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
-
-        //현위치로 이동 버튼
-        UiSettings uiSettings = naverMap.getUiSettings();
-        uiSettings.setLocationButtonEnabled(true);
-    }
-
-    public void getMapAsync(@androidx.annotation.NonNull com.naver.maps.map.OnMapReadyCallback callback) { /* compiled code */ }
 
 }
 
