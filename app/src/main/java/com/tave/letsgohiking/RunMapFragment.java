@@ -64,7 +64,7 @@ public class RunMapFragment extends Fragment implements OnMapReadyCallback {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
-        startLocationService();
+        //startLocationService();
 //        mapView = findViewById(R.id.map_view);
 //        mapView.onCreate(savedInstanceState);
 
@@ -78,7 +78,7 @@ public class RunMapFragment extends Fragment implements OnMapReadyCallback {
 //        locationButtonView = findViewById(R.id.locationbuttonview);
         // 내위치 찾기 위한 source
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
-        startLocationService();
+        //startLocationService();
     }
 
 
@@ -190,6 +190,7 @@ public class RunMapFragment extends Fragment implements OnMapReadyCallback {
 //        uiSettings.setLocationButtonEnabled(true);
 //    }
 
+    /*
     //현재 위치에 대한 위도, 경도 정보 받기
     public void startLocationService() {
         LocationManager manager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -258,7 +259,7 @@ public class RunMapFragment extends Fragment implements OnMapReadyCallback {
         public void onProviderEnabled(String provider) { }
 
         public void onStatusChanged(String provider, int status, Bundle extras) { }
-    }
+    }*/
 
     //GPS 백그라운드 위험권한 요청하기
 //    public void checkPermissions(String[] permissions) {
