@@ -84,11 +84,12 @@
             android:textSize="50sp" />
 
         <TextView
-            android:id="@+id/textView13"
-            android:layout_width="wrap_content"
+            android:id="@+id/pace"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:gravity="center"
+            android:textSize="50sp" />
     </LinearLayout>
 
     <LinearLayout

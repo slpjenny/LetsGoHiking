@@ -27,6 +27,7 @@ import java.util.TimerTask;
 public class MeasureActivity extends AppCompatActivity {
     TextView timeTextView; // 소요시간 띄울 TextView
     TextView distanceTextView; // 거리 띄울 TextView
+    TextView paceTextView; // 페이스 띄울 TextView
 
     MyService myService;
     boolean isService = false; //서비스 중인 확인용용
@@ -40,11 +41,14 @@ public class MeasureActivity extends AppCompatActivity {
     public static String finalDistance;
     private long minTime;
     private double speed;
-    private int pace;
-    private int count;
+    //private int pace;
+    private int count; // 누적 시간 (초 단위)
     private int min;
     private int sec;
     //private Location location;
+    private double pace;
+    private int paceMin;
+    private int paceSec;
 
     private List<LatLng> placeList=new ArrayList<>();
 
@@ -57,6 +61,7 @@ public class MeasureActivity extends AppCompatActivity {
 
         timeTextView=findViewById(R.id.time);
         distanceTextView=findViewById(R.id.totalDistance);
+        paceTextView=findViewById(R.id.pace);
 
         Button mapBtn = findViewById(R.id.mapBtn);
         Button stopBtn = findViewById(R.id.stopBtn);
@@ -112,11 +117,27 @@ public class MeasureActivity extends AppCompatActivity {
                     public void run(){
                         if(myService !=null) {
                             finalDistance = myService.getTotalDistance();
+
+                            count = myService.getCount();
+
+                            speed = myService.getSpeed();
+                            pace = 1/speed;
+                            paceMin = (int)pace/60;
+                            paceSec = (int)pace%60;
+
+                            if (speed==0.0) {
+                                paceTextView.setText("-\'-\"");
+                            }
+
+                            else {
+                                paceTextView.setText(paceMin+"\'"+paceSec+"\"");
+                            }
+
                             distanceTextView.setText(finalDistance+" KM");
 
                             lastLocation = myService.getLastLocation();
                             speed = myService.getSpeed();
-                            pace = myService.getPace();
+                            //pace = myService.getPace();
                             //location = myService.getLocation();
 
                             /*
@@ -128,7 +149,6 @@ public class MeasureActivity extends AppCompatActivity {
 
                             placeList=myService.getList();
 
-                            count = myService.getCount();
                             min = count/60;
                             sec = count%60;
 

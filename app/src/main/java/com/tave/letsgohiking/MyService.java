@@ -32,7 +32,7 @@ public class MyService extends Service {
     private String totalDistance; // String 누적 이동 거리
     private long minTime;
     private double speed;
-    private int pace;
+    //private int pace;
     private int count;
     private boolean isStop;
     private List<LatLng> placeList = new ArrayList<>();
@@ -139,10 +139,14 @@ public class MyService extends Service {
                 Log.d("Service", "거리: "+distance+"m");
                 speed = distance / minTime*1000 / 3600;
                 Log.d("Service", "현재속도: "+speed+"km/s");
+
+                /*
                 if(speed == 0)
                     pace = 0;
                 else
                     pace =(int)(distance / speed);
+
+                 */
             }
             lastLocation = location;
         }
@@ -204,10 +208,6 @@ public class MyService extends Service {
 
     String getTotalDistance() {
             return totalDistance;
-    }
-
-    int getPace() {
-        return pace;
     }
 
     int getCount() { return count; }
