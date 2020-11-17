@@ -58,7 +58,7 @@ public class recordFragment extends Fragment {
         //items= recyclerview에 들어가는 아이템 arraylist
         int all_runningNum = items.size();
         EditText all_Running = getView().findViewById(R.id.all_Running);
-        all_Running.setText("총 러닝횟수" + " " + all_runningNum);
+        all_Running.setText("총 러닝횟수: " + all_runningNum);
 
     }
 }

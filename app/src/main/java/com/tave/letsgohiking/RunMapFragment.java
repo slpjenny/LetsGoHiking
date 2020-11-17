@@ -66,7 +66,7 @@ public class RunMapFragment extends Fragment implements OnMapReadyCallback {
         //locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
         startLocationService();
 //        mapView = findViewById(R.id.map_view);
-//        mapView.onCreate(savedInstanceState);
+//        mapView.onCreate(savedInstanceState);a
 
 
         //naverMapBasicSettings();

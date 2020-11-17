@@ -44,7 +44,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="7dp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2.5"
@@ -66,6 +66,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:text="소요시간"
+                    android:fontFamily="@font/batang"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/textView_velocity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:text="평균 속도"
                     android:fontFamily="@font/batang"
                     android:textSize="22sp" />
             </LinearLayout>
