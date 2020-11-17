@@ -47,7 +47,8 @@ public class RunMapFragment extends Fragment implements OnMapReadyCallback {
     private Location lastLocation;
     private long minTime;
 
-    //PolylineOverlay path = new PolylineOverlay();
+    PolylineOverlay path = new PolylineOverlay();
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -57,6 +58,7 @@ public class RunMapFragment extends Fragment implements OnMapReadyCallback {
         locationButtonView = rootView.findViewById(R.id.locationbuttonview);
         //mapView.getMapAsync(this);
         naverMapBasicSettings();
+
         return rootView;
     }
 
@@ -287,6 +289,8 @@ public class RunMapFragment extends Fragment implements OnMapReadyCallback {
 //    }
 
     public void getMapAsync(@androidx.annotation.NonNull com.naver.maps.map.OnMapReadyCallback callback) { /* compiled code */ }
+
+
 
 }
 

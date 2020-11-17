@@ -71,6 +71,7 @@ public class MeasureActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplication(), MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); //Task 내에 이미 활성화된 activity 를 다시 활성화 할때, 새로 생성하지 않고 재사용하는 flag
+                //MainActivity로 placeList 객체 직렬화 해서 보내기
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("placeList", (Serializable) placeList);
                 intent.putExtra("bundle", bundle);
@@ -156,7 +157,7 @@ public class MeasureActivity extends AppCompatActivity {
                         }
                         //Log.d("Measure", "위도: "+latitude+"경도: "+longitude);
                         //Log.d("Measure", "pace: "+pace);
-                        //Log.d("Measure", "count: "+count);
+                        Log.d("Measure", "count: "+count);
                         //Log.d("Measure", "distance"+);
                     }
                 });
