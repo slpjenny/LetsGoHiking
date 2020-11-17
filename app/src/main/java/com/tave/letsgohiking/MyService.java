@@ -13,6 +13,8 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.naver.maps.geometry.LatLng;
 
 import java.util.ArrayList;
@@ -34,6 +36,9 @@ public class MyService extends Service {
     private int count;
     private boolean isStop;
     private List<LatLng> placeList = new ArrayList<>();
+    //private Location location;
+    private LocationManager manager;
+    private GPSListener gpsListener;
 
     class MyBinder extends Binder {
         MyService getService() {
@@ -71,6 +76,8 @@ public class MyService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        //lastLocation=null;
+        manager.removeUpdates(gpsListener);
         isStop=true;
     }
 
@@ -78,32 +85,37 @@ public class MyService extends Service {
 
     //현재 위치에 대한 위도, 경도 정보 받기
     public void startLocationService() {
-        LocationManager manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
-        try {
-            Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if(location != null) {
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
-                placeList.add(new LatLng(latitude, longitude));
-                Log.d("Service", "최근 위치-> Latitude: "+ latitude + "Longitude: " + longitude);
-                //lastLocation 시작 위치로 초기화
-                if(lastLocation != null) {
-                    lastLocation.setLatitude(latitude);
-                    lastLocation.setLongitude(longitude);
+            try {
+                Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if(location != null) {
+                    double latitude = location.getLatitude();
+                    double longitude = location.getLongitude();
+                    placeList.add(new LatLng(latitude, longitude));
+                    Log.d("Service", "최근 위치-> Latitude: "+ latitude + "Longitude: " + longitude);
+                    //lastLocation 시작 위치로 초기화
+                    if(lastLocation != null) {
+                        lastLocation.setLatitude(latitude);
+                        lastLocation.setLongitude(longitude);
+                    }
+
                 }
+
+                gpsListener = new GPSListener();
+                minTime = 1000;
+                float minDistance = 0;
+
+                manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, gpsListener);
+                Log.d("Service", "내 위치확인 요청함");
+
+            } catch (SecurityException e) {
+                e.printStackTrace();
             }
 
-            GPSListener gpsListener = new GPSListener();
-            minTime = 1000;
-            float minDistance = 0;
 
-            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, gpsListener);
-            Log.d("Service", "내 위치확인 요청함");
 
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        }
+
     }
 
     class GPSListener implements LocationListener {
@@ -181,6 +193,10 @@ public class MyService extends Service {
     Location getLastLocation() {
         return lastLocation;
     }
+
+    /*Location getLocation(){
+        return location;
+    }*/
 
     double getSpeed() {
         return speed;

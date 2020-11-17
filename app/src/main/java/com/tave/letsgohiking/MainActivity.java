@@ -35,6 +35,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
+import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.NaverMapOptions;
 import com.naver.maps.map.OnMapReadyCallback;
@@ -223,14 +224,14 @@ public class MainActivity extends AppCompatActivity {
         super.onNewIntent(intent);
 
         Bundle bundle;
-        bundle=intent.getBundleExtra("bundle");
-        placeList = (ArrayList<LatLng>)bundle.getSerializable("placeList");
+        bundle = intent.getBundleExtra("bundle");
+        placeList = (ArrayList<LatLng>) bundle.getSerializable("placeList");
 
         path.setCoords(placeList);
 
         path.setWidth(20);
         path.setColor(Color.MAGENTA);
-        path.setMap(naverMap);
+        path.setMap(mapFragment.naverMap);
     }
 
 
