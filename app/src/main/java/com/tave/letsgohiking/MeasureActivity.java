@@ -44,6 +44,7 @@ public class MeasureActivity extends AppCompatActivity {
     private int count;
     private int min;
     private int sec;
+    //private Location location;
 
     private List<LatLng> placeList=new ArrayList<>();
 
@@ -96,6 +97,8 @@ public class MeasureActivity extends AppCompatActivity {
                     unbindService(conn);
                     isService=false;
                 }
+
+                //location=null;
             }
         });
 
@@ -114,11 +117,16 @@ public class MeasureActivity extends AppCompatActivity {
                             lastLocation = myService.getLastLocation();
                             speed = myService.getSpeed();
                             pace = myService.getPace();
+                            //location = myService.getLocation();
+
+                            /*
                 ;            if(lastLocation!=null) {
                                 latitude = lastLocation.getLatitude();
                                 longitude = lastLocation.getLongitude();
                                 placeList.add(new LatLng(latitude, longitude));
-                            }
+                            }*/
+
+                            placeList=myService.getList();
 
                             count = myService.getCount();
                             min = count/60;

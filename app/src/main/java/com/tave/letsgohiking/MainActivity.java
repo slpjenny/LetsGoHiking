@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
         locationSource =  new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
 
-        startLocationService(); //위도, 경도 정보 받기
+        //startLocationService(); //위도, 경도 정보 받기
         startBtn = findViewById(R.id.startBtn);
         startBtn.setVisibility(View.VISIBLE);
         startBtn.setOnClickListener(new View.OnClickListener(){
@@ -228,6 +228,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
              */
 
             //lastLocation과 location 사이 거리 측정과 속도 측정
+
+
             double distance;
             if(lastLocation != null) {
                 distance = location.distanceTo(lastLocation);
