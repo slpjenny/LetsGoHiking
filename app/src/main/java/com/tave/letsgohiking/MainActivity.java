@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         if(saveSignFromMeasure.equals("ok")){
           FragmentTransaction transaction = fragmentManager.beginTransaction();
           transaction.replace(R.id.frameLayout, recordFragment).commitAllowingStateLoss();
+          getIntent().removeExtra("SAVE OR NOT");
         }
 
     }

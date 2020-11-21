@@ -70,11 +70,6 @@ public class MeasureActivity extends AppCompatActivity {
 
     public static recordFragment recordFragment1 = new recordFragment();
 
-//    public static void fragmentChange(){
-//        FragmentManager fragmentManager1= getSupportFragmentManager();
-//        FragmentTransaction transaction = fragmentManager1.beginTransaction();
-//        transaction.replace(R.id.measure_layout1, recordFragment1).commitAllowingStateLoss();
-//    }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -278,7 +273,6 @@ public class MeasureActivity extends AppCompatActivity {
             okButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                SAVE_OR_NOT="ok";
 
                     //다이얼로그로 저장한 제목이름 string으로 받아오기
                     String recordtitle = recordTitle.getText().toString();
