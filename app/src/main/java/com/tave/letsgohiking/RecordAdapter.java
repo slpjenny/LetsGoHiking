@@ -63,8 +63,8 @@ public class RecordAdapter extends  RecyclerView.Adapter<RecordAdapter.ViewHolde
             textView_velocity = itemView.findViewById(R.id.textView_velocity);
 
 
-            //viewholder 안에서 전달받은 뷰를 클릭했을떄~ listener쪽으로 전달할 수 있다.
-            //각각의item뷰가 클릭되었을때~ 인터페이스로 만든 함수 호출
+            //viewholder 안에서 전달받은 뷰를 클릭했을 때~ listener 쪽으로 전달할 수 있다.
+            //각각의 item 뷰가 클릭되었을 때~ 인터페이스로 만든 함수 호출
         }
 
         public void setItem(recordObject item) {

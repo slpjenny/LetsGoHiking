@@ -27,16 +27,14 @@ public class MyService extends Service {
     private double latitude;
     private double longitude;
     private double distance; // 초당 이동 거리
-    private double mTotalDistance=0; // double 누적 이동 거리 (m단위)
-    private double kmTotalDistance; // double 누적 이동 거리 (km단위)
-    private String totalDistance; // String 누적 이동 거리
+    private double mTotalDistance=0; // 누적 이동 거리 (double, m단위)
+    private double kmTotalDistance; // 누적 이동 거리 (double, km단위)
+    private String totalDistance; // 누적 이동 거리 (String, km단위)
     private long minTime;
     private double speed;
-    //private int pace;
     private int count;
     private boolean isStop;
     private List<LatLng> placeList = new ArrayList<>();
-    //private Location location;
     private LocationManager manager;
     private GPSListener gpsListener;
 
@@ -76,7 +74,6 @@ public class MyService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //lastLocation=null;
         manager.removeUpdates(gpsListener);
         isStop=true;
     }
@@ -125,8 +122,6 @@ public class MyService extends Service {
             placeList.add(new LatLng(latitude, longitude));
 
             Log.d("Service", "바뀐 위치-> Latitude: "+ latitude + "Longitude: " + longitude);
-            //double mySpeed = location.getSpeed()*3600/1000;
-            //Log.d("Map", "현재 속도-> "+mySpeed);
 
             //lastLocation과 location 사이 거리 측정과 속도 측정
             if(lastLocation != null) {
@@ -140,13 +135,6 @@ public class MyService extends Service {
                 speed = distance / minTime*1000 / 3600;
                 Log.d("Service", "현재속도: "+speed+"km/s");
 
-                /*
-                if(speed == 0)
-                    pace = 0;
-                else
-                    pace =(int)(distance / speed);
-
-                 */
             }
             lastLocation = location;
         }
@@ -171,7 +159,6 @@ public class MyService extends Service {
                 handler.post(new Runnable(){
                     @Override
                     public void run() {
-                        //Toast.makeText(getApplicationContext(), count+"", Toast.LENGTH_SHORT).show();
                         Log.d("COUNT", count+"");
                     }
                 });
@@ -186,7 +173,6 @@ public class MyService extends Service {
             handler.post(new Runnable(){
                 @Override
                 public void run() {
-                    //Toast.makeText(getApplicationContext(), "서비스 종료", Toast.LENGTH_SHORT).show();
                     Log.d("End", "서비스 종료");
                 }
             });
@@ -197,10 +183,6 @@ public class MyService extends Service {
     Location getLastLocation() {
         return lastLocation;
     }
-
-    /*Location getLocation(){
-        return location;
-    }*/
 
     double getSpeed() {
         return speed;

@@ -38,7 +38,7 @@ public class recordFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext())); //이거 없애면 리싸이클러뷰 안나타남.
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setHasFixedSize(true);
 
         adapter.notifyDataSetChanged();
