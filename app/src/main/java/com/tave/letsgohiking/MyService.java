@@ -210,6 +210,10 @@ public class MyService extends Service {
             return totalDistance;
     }
 
+    double getkmTotalDistance(){
+        return kmTotalDistance;
+    }
+
     int getCount() { return count; }
 
     ArrayList<LatLng> getList() {return (ArrayList<LatLng>) placeList; }

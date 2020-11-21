@@ -40,7 +40,8 @@ import static com.tave.letsgohiking.recordFragment.adapter;
 public class MeasureActivity extends AppCompatActivity {
     TextView timeTextView; // 소요시간 띄울 TextView
     TextView distanceTextView; // 거리 띄울 TextView
-    TextView paceTextView; // 페이스 띄울 TextView
+    TextView paceTextView; // 순간 페이스 띄울 TextView
+    TextView avgPaceTextView; // 평균 페이스 띄울 TextView
 
     MyService myService;
     boolean isService = false; //서비스 중인 확인용용
@@ -54,12 +55,16 @@ public class MeasureActivity extends AppCompatActivity {
     public static String finalDistance;
     private long minTime;
     private double speed;
+    private double avgSpeed; // 평균 초속
     //private int pace;
     private int count; // 누적 시간 (초 단위)
     private int min;
     private int sec;
     //private Location location;
-    private double pace;
+    private double pace; // 순간 페이스
+    private double avgPace; // 평균 페이스
+    private int avgPaceMin;
+    private int avgPaceSec;
     private int paceMin;
     private int paceSec;
 
@@ -79,6 +84,7 @@ public class MeasureActivity extends AppCompatActivity {
         timeTextView=findViewById(R.id.time);
         distanceTextView=findViewById(R.id.totalDistance);
         paceTextView=findViewById(R.id.pace);
+        avgPaceTextView=findViewById(R.id.avgPace);
 
         Button mapBtn = findViewById(R.id.mapBtn);
         Button stopBtn = findViewById(R.id.stopBtn);
@@ -116,12 +122,6 @@ public class MeasureActivity extends AppCompatActivity {
 
                 MainActivity.startBtn.setBackgroundResource(R.drawable.start_button);
 
-                //서비스 종료
-                if (isService) {
-                    unbindService(conn);
-                    isService = false;
-                }
-
                 //호출 완료되고 dismiss()후에, record fragment로 가도록 해야한다...
                 //저장 했을 때만 이동하도록.
 
@@ -153,6 +153,20 @@ public class MeasureActivity extends AppCompatActivity {
                             else {
                                 paceTextView.setText(paceMin+"\'"+paceSec+"\"");
                             }
+
+                            avgSpeed = myService.getkmTotalDistance()/count;
+                            avgPace = 1/avgSpeed;
+                            avgPaceMin = (int)avgPace/60;
+                            avgPaceSec = (int)avgPace%60;
+
+                            if (avgSpeed==0.0){
+                                avgPaceTextView.setText("-\'-\"");
+                            }
+
+                            else{
+                                avgPaceTextView.setText(avgPaceMin+"\'"+avgPaceSec+"\"");
+                            }
+
 
                             distanceTextView.setText(finalDistance+" KM");
 
@@ -284,18 +298,25 @@ public class MeasureActivity extends AppCompatActivity {
 
 
                     //record_item 날짜,제목,소요시간,총 거리 초기화 완료
-                    recordObject saveRecordItems = new recordObject(date_text, recordtitle, totalDistance, leadTime, "평균 속도");
+                    recordObject saveRecordItems = new recordObject(date_text, recordtitle, totalDistance, leadTime, avgPaceMin+"\'"+avgPaceSec+"\"");
                     adapter.add(saveRecordItems);
 
                     Toast.makeText(context, "기록을 저장했습니다.", Toast.LENGTH_SHORT).show();
 
-                    //Measure Activity로 값 전달 (저장)
+                    //서비스 종료 구현
+                    if(isService) {
+                        unbindService(conn);
+                        isService = false;
+                    }
 
+                    //Measure Activity로 값 전달 (저장)
                     Intent saveIntent = new Intent(context.getApplicationContext(), MainActivity.class);
                     saveIntent.putExtra("SAVE OR NOT", "ok");
                     saveIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(saveIntent);
                     finish();
+
+
 
                     // 커스텀 다이얼로그를 종료.
                     mydlg.dismiss();
