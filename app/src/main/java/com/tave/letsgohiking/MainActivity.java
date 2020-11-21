@@ -80,17 +80,27 @@ public class MainActivity extends AppCompatActivity {
 
         //record fragment로 이동하기
         String saveSignFromMeasure= getIntent().getStringExtra("SAVE OR NOT");
+        String gotoMap= getIntent().getStringExtra("Go to mapfragment");
 
-        if(saveSignFromMeasure == null ){
-            saveSignFromMeasure = "null";
+        if(saveSignFromMeasure==null){
+            saveSignFromMeasure= "null";
         }
-
         if(saveSignFromMeasure.equals("ok")){
-          FragmentTransaction transaction = fragmentManager.beginTransaction();
-          transaction.replace(R.id.frameLayout, recordFragment).commitAllowingStateLoss();
-          getIntent().removeExtra("SAVE OR NOT");
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.frameLayout, recordFragment).commitAllowingStateLoss();
+            getIntent().removeExtra("SAVE OR NOT");
         }
 
+
+        if(gotoMap==null){
+            gotoMap="null";
+        }
+
+        if(gotoMap.equals("go")){
+            FragmentTransaction transaction= fragmentManager.beginTransaction();
+            transaction.replace(R.id.frameLayout, mapFragment).commitAllowingStateLoss();
+            getIntent().removeExtra("Go to mapfragment");
+        }
     }
 
     @Override
