@@ -78,6 +78,8 @@ public class RecordAdapter extends  RecyclerView.Adapter<RecordAdapter.ViewHolde
     }
 
 
+    public static int position;
+
     public void setItems(ArrayList<recordObject> items) {
         this.items = items;
     }

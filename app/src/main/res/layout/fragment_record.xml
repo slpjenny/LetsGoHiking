@@ -12,16 +12,16 @@
         android:orientation="horizontal">
 
 
-            <EditText
-                android:id="@+id/all_Record"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="5"
-                android:background="@drawable/border_rectangle"
-                android:text="총 기록 :"
-                android:gravity="left|center"
-                android:textColor="#ffffff"
-                android:textSize="20dp"/>
+        <EditText
+            android:id="@+id/all_Record"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:background="@drawable/border_rectangle"
+            android:gravity="left|center"
+            android:text="총 기록 :"
+            android:textColor="#ffffff"
+            android:textSize="20dp" />
 
             <EditText
                 android:id="@+id/all_Running"
