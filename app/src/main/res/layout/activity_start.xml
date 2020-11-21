@@ -10,7 +10,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Running Hi"
+        android:text="Running High"
         android:textColor="#F4F3F3"
         android:textSize="36sp"
         android:fontFamily="@font/batang"
