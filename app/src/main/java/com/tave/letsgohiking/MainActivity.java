@@ -35,6 +35,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
+import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.NaverMapOptions;
 import com.naver.maps.map.OnMapReadyCallback;
@@ -52,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private FusedLocationSource locationSource;
     private NaverMap naverMap;
 
-    private FragmentManager fragmentManager = getSupportFragmentManager();
-    private recordFragment recordFragment = new recordFragment();
+    public FragmentManager fragmentManager= getSupportFragmentManager();
+    public recordFragment recordFragment = new recordFragment();
     private badgeFragment badgeFragment = new badgeFragment();
     private SettingFragment settingFragment = new SettingFragment();
     private RunMapFragment mapFragment = new RunMapFragment();
@@ -66,6 +67,30 @@ public class MainActivity extends AppCompatActivity {
     PolylineOverlay path = new PolylineOverlay();
 
     public List<LatLng> placeList=new ArrayList<>();
+
+//    public static void changeFragment(){
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.frameLayout, recordFragment).commitAllowingStateLoss();
+//    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //record fragment로 이동하기
+        String saveSignFromMeasure= getIntent().getStringExtra("SAVE OR NOT");
+
+        if(saveSignFromMeasure == null ){
+            saveSignFromMeasure = "null";
+        }
+
+        if(saveSignFromMeasure.equals("ok")){
+          FragmentTransaction transaction = fragmentManager.beginTransaction();
+          transaction.replace(R.id.frameLayout, recordFragment).commitAllowingStateLoss();
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,11 +132,14 @@ public class MainActivity extends AppCompatActivity {
         };
 
         //checkPermissions(permissions);
+
+
     }
 
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
             FragmentTransaction transaction = fragmentManager.beginTransaction();
 
             switch (menuItem.getItemId()) {
@@ -165,14 +193,6 @@ public class MainActivity extends AppCompatActivity {
                 requestCode, permissions, grantResults);
     }
 
-
-
-
-
-
-
-
-
     //GPS 백그라운드 위험권한 요청하기
     public void checkPermissions(String[] permissions) {
         ArrayList<String> targetList = new ArrayList<String>();
@@ -204,13 +224,15 @@ public class MainActivity extends AppCompatActivity {
         super.onNewIntent(intent);
 
         Bundle bundle;
-        bundle=intent.getBundleExtra("bundle");
-        placeList = (ArrayList<LatLng>)bundle.getSerializable("placeList");
+        bundle = intent.getBundleExtra("bundle");
+        placeList = (ArrayList<LatLng>) bundle.getSerializable("placeList");
 
         path.setCoords(placeList);
 
         path.setWidth(20);
         path.setColor(Color.MAGENTA);
-        path.setMap(naverMap);
+        path.setMap(mapFragment.naverMap);
     }
+
+
 }

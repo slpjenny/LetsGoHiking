@@ -6,12 +6,14 @@ public class recordObject {
     String title;
     String length;
     String time;
+    String velocity;
 
-    public recordObject(String date, String title, String length, String time){
+    public recordObject(String date, String title, String length, String time, String velocity){
         this.date=date;
         this.title=title;
         this.length=length;
         this.time=time;
+        this.velocity=velocity;
     }
 
 
@@ -39,5 +41,12 @@ public class recordObject {
     }
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getVelocity() {
+        return velocity;
+    }
+    public void setVelocity(String velocity) {
+        this.velocity = velocity;
     }
 }
