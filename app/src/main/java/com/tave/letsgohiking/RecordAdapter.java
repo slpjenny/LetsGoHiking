@@ -14,9 +14,7 @@ public class RecordAdapter extends  RecyclerView.Adapter<RecordAdapter.ViewHolde
 
     static ArrayList<recordObject> items= new ArrayList<recordObject>();
 
-    public void add(recordObject item) {
-        items.add(item);
-    }
+    public void add(recordObject item) { items.add(item); }
 
     @NonNull
     @Override
