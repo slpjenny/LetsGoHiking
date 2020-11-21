@@ -78,7 +78,7 @@
             android:textSize="50sp" />
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/avgPace"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

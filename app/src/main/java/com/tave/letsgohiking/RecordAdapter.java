@@ -51,6 +51,7 @@ public class RecordAdapter extends  RecyclerView.Adapter<RecordAdapter.ViewHolde
         TextView textView_title;
         TextView textView_length;
         TextView textView_time;
+        TextView textView_velocity;
 
         public ViewHolder(final View itemView) {
             super(itemView);
@@ -59,6 +60,7 @@ public class RecordAdapter extends  RecyclerView.Adapter<RecordAdapter.ViewHolde
             textView_title = itemView.findViewById(R.id.textView_title);
             textView_length = itemView.findViewById(R.id.textView_length);
             textView_time = itemView.findViewById(R.id.textView_time);
+            textView_velocity = itemView.findViewById(R.id.textView_velocity);
 
 
             //viewholder 안에서 전달받은 뷰를 클릭했을떄~ listener쪽으로 전달할 수 있다.
@@ -70,6 +72,7 @@ public class RecordAdapter extends  RecyclerView.Adapter<RecordAdapter.ViewHolde
             textView_title.setText(item.getTitle());
             textView_length.setText(item.getLength());
             textView_time.setText(item.getTime());
+            textView_velocity.setText(item.getVelocity());
         }
 
     }
