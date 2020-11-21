@@ -68,12 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
     public List<LatLng> placeList=new ArrayList<>();
 
-//    public static void changeFragment(){
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.frameLayout, recordFragment).commitAllowingStateLoss();
-//    }
-
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -114,10 +108,8 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
 
-        //mapFragment.getMapAsync(this);
         locationSource =  new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
 
-        //startLocationService(); //위도, 경도 정보 받기
         startBtn = findViewById(R.id.startBtn);
         startBtn.setVisibility(View.VISIBLE);
         startBtn.setOnClickListener(new View.OnClickListener(){
@@ -129,9 +121,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
 
                 startBtn.setBackgroundResource(R.drawable.runner_image);
-                //startBtn.setVisibility(View.INVISIBLE);
-                //               Drawable finish_image = findViewById(R.drawable.finish_image);
-                //                startBtn.setBackground(finish_image);
 
             }
         });
@@ -141,10 +130,6 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 //Manifest.permission.ACCESS_BACKGROUND_LOCATION
         };
-
-        //checkPermissions(permissions);
-
-
     }
 
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -240,10 +225,8 @@ public class MainActivity extends AppCompatActivity {
 
         path.setCoords(placeList);
 
-        path.setWidth(20);
-        path.setColor(Color.MAGENTA);
+        path.setWidth(10);
+        path.setColor(Color.rgb(64, 81, 191));
         path.setMap(mapFragment.naverMap);
     }
-
-
 }

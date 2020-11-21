@@ -38,29 +38,24 @@ import java.util.TimerTask;
 import static com.tave.letsgohiking.recordFragment.adapter;
 
 public class MeasureActivity extends AppCompatActivity {
-    TextView timeTextView; // 소요시간 띄울 TextView
-    TextView distanceTextView; // 거리 띄울 TextView
-    TextView paceTextView; // 순간 페이스 띄울 TextView
-    TextView avgPaceTextView; // 평균 페이스 띄울 TextView
+    TextView timeTextView; // 소요시간
+    TextView distanceTextView; // 거리
+    TextView paceTextView; // 순간 페이스
+    TextView avgPaceTextView; // 평균 페이스
 
     MyService myService;
-    boolean isService = false; //서비스 중인 확인용용
+    boolean isService = false; //서비스 중인 확인용
 
     private Handler handler;
     private Timer timer;
 
     private Location lastLocation;
-    private double longitude;
-    private double latitude;
     public static String finalDistance;
-    private long minTime;
-    private double speed;
+    private double speed; // 순간 초속
     private double avgSpeed; // 평균 초속
-    //private int pace;
     private int count; // 누적 시간 (초 단위)
     private int min;
     private int sec;
-    //private Location location;
     private double pace; // 순간 페이스
     private double avgPace; // 평균 페이스
     private int avgPaceMin;
@@ -81,15 +76,13 @@ public class MeasureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_measure);
 
-        timeTextView=findViewById(R.id.time);
-        distanceTextView=findViewById(R.id.totalDistance);
-        paceTextView=findViewById(R.id.pace);
-        avgPaceTextView=findViewById(R.id.avgPace);
+        timeTextView = findViewById(R.id.time);
+        distanceTextView = findViewById(R.id.totalDistance);
+        paceTextView = findViewById(R.id.pace);
+        avgPaceTextView = findViewById(R.id.avgPace);
 
         Button mapBtn = findViewById(R.id.mapBtn);
         Button stopBtn = findViewById(R.id.stopBtn);
-        //ImageButton pauseBtn = findViewById(R.id.pauseBtn);
-
 
         Intent intent = new Intent(MeasureActivity.this, MyService.class);
         bindService(intent, conn, Context.BIND_AUTO_CREATE); //MyGPSService와 연결
@@ -142,49 +135,37 @@ public class MeasureActivity extends AppCompatActivity {
                             count = myService.getCount();
 
                             speed = myService.getSpeed();
-                            pace = 1/speed;
-                            paceMin = (int)pace/60;
-                            paceSec = (int)pace%60;
+                            pace = 1 / speed;
+                            paceMin = (int) pace / 60;
+                            paceSec = (int) pace % 60;
 
-                            if (speed==0.0) {
+                            if (speed == 0.0) {
                                 paceTextView.setText("-\'-\"");
+                            } else {
+                                paceTextView.setText(paceMin + "\'" + paceSec + "\"");
                             }
 
-                            else {
-                                paceTextView.setText(paceMin+"\'"+paceSec+"\"");
-                            }
+                            avgSpeed = myService.getkmTotalDistance() / count;
+                            avgPace = 1 / avgSpeed;
+                            avgPaceMin = (int) avgPace / 60;
+                            avgPaceSec = (int) avgPace % 60;
 
-                            avgSpeed = myService.getkmTotalDistance()/count;
-                            avgPace = 1/avgSpeed;
-                            avgPaceMin = (int)avgPace/60;
-                            avgPaceSec = (int)avgPace%60;
-
-                            if (avgSpeed==0.0){
+                            if (avgSpeed == 0.0) {
                                 avgPaceTextView.setText("-\'-\"");
+                            } else {
+                                avgPaceTextView.setText(avgPaceMin + "\'" + avgPaceSec + "\"");
                             }
 
-                            else{
-                                avgPaceTextView.setText(avgPaceMin+"\'"+avgPaceSec+"\"");
-                            }
 
-
-                            distanceTextView.setText(finalDistance+" KM");
+                            distanceTextView.setText(finalDistance + " KM");
 
                             lastLocation = myService.getLastLocation();
                             speed = myService.getSpeed();
-                            //pace = myService.getPace();
-                            //location = myService.getLocation();
 
-                                /*
-                                latitude = lastLocation.getLatitude();
-                                longitude = lastLocation.getLongitude();
-                                placeList.add(new LatLng(latitude, longitude));
-
-                                 */
                             placeList = myService.getList();
 
-                            min = count/60;
-                            sec = count%60;
+                            min = count / 60;
+                            sec = count % 60;
 
                             if (min < 1) {
                                 if (sec < 10)
@@ -202,147 +183,130 @@ public class MeasureActivity extends AppCompatActivity {
                                 else
                                     timeTextView.setText(Integer.toString(min) + ":" + Integer.toString(sec));
                             }
-                            //textView.setText(Integer.toString(count));
                         }
-                        //Log.d("Measure", "위도: "+latitude+"경도: "+longitude);
-                        //Log.d("Measure", "pace: "+pace);
-                        //Log.d("Measure", "count: "+count);
-                        //Log.d("Measure", "distance"+);
                     }
                 });
             }
         }, 0, 1000); //시작지연시간 0, 주기 1초
 
-
-
-
-
-//        pauseBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
     }
 
-    ServiceConnection conn = new ServiceConnection() {
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            // 서비스와 연결되었을 때 호출되는 메서드
-            // 서비스 객체를 전역변수로 저장
-            MyService.MyBinder mb = (MyService.MyBinder) service;
-            myService = mb.getService(); // 서비스가 제공하는 메소드를 호출하여 서비스쪽 객체를 전달받을수 있음
-            isService = true;
+
+        ServiceConnection conn = new ServiceConnection() {
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                // 서비스와 연결되었을 때 호출되는 메서드
+                // 서비스 객체를 전역변수로 저장
+                MyService.MyBinder mb = (MyService.MyBinder) service;
+                myService = mb.getService(); // 서비스가 제공하는 메소드를 호출하여 서비스쪽 객체를 전달받을수 있음
+                isService = true;
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName componentName) {
+                // 서비스와 연결이 끊겼을 때 호출되는 메서드
+                isService = false;
+            }
+        };
+
+        protected void onStart () {
+            super.onStart();
         }
 
         @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-            // 서비스와 연결이 끊겼을 때 호출되는 메서드
-            isService = false;
-        }
-    };
+        protected void onDestroy () {
+            super.onDestroy();
+            if (isService) {
+                unbindService(conn);
+                isService = false;
+            }
 
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (isService) {
-            unbindService(conn);
-            isService = false;
         }
 
-    }
+
+        public class CustomDialog {
+            private Context context;
+
+            public CustomDialog(Context context) {
+                this.context = context;
+            }
+
+            // 호출할 다이얼로그 함수를 정의한다.
+            public void callFunction() {
+                // 커스텀 다이얼로그를 정의하기위해 Dialog클래스를 생성한다.
+                final Dialog mydlg = new Dialog(context);
+
+                // 액티비티의 타이틀바를 숨긴다.
+                mydlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+                // 커스텀 다이얼로그의 레이아웃을 설정.
+                mydlg.setContentView(R.layout.custom_dialog);
+
+                // 커스텀 다이얼로그를 노출한다.
+                mydlg.show();
+
+                // 커스텀 다이얼로그의 각 위젯들을 정의한다.
+                final EditText recordTitle = (EditText) mydlg.findViewById(R.id.recordTitle);
+                final Button okButton = (Button) mydlg.findViewById(R.id.okButton);
+                final Button cancelButton = (Button) mydlg.findViewById(R.id.cancelButton);
 
 
-    public class CustomDialog {
-        private Context context;
+                okButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-        public CustomDialog(Context context) {
-            this.context = context;
-        }
+                        //다이얼로그로 저장한 제목이름 string으로 받아오기
+                        String recordtitle = recordTitle.getText().toString();
 
-        // 호출할 다이얼로그 함수를 정의한다.
-        public void callFunction() {
-            //final TextView main_label ()안에 넣어주기 아직 안함.
-
-            // 커스텀 다이얼로그를 정의하기위해 Dialog클래스를 생성한다.
-            final Dialog mydlg = new Dialog(context);
-
-            // 액티비티의 타이틀바를 숨긴다.
-            mydlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-            // 커스텀 다이얼로그의 레이아웃을 설정.
-            mydlg.setContentView(R.layout.custom_dialog);
-
-            // 커스텀 다이얼로그를 노출한다.
-            mydlg.show();
-
-            // 커스텀 다이얼로그의 각 위젯들을 정의한다.
-            final EditText recordTitle = (EditText) mydlg.findViewById(R.id.recordTitle);
-            final Button okButton = (Button) mydlg.findViewById(R.id.okButton);
-            final Button cancelButton = (Button) mydlg.findViewById(R.id.cancelButton);
+                        //현재 날짜로 기록 저장
+                        Date currentDate = Calendar.getInstance().getTime();
+                        String date_text = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(currentDate);
 
 
-            okButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+                        //record_item 날짜,제목,소요시간,총 거리 초기화 완료
+                        recordObject saveRecordItems = new recordObject(date_text, recordtitle, totalDistance, leadTime, avgPaceMin + "\'" + avgPaceSec + "\"");
+                        adapter.add(saveRecordItems);
 
-                    //다이얼로그로 저장한 제목이름 string으로 받아오기
-                    String recordtitle = recordTitle.getText().toString();
+                        Toast.makeText(context, "기록을 저장했습니다.", Toast.LENGTH_SHORT).show();
 
-                    //현재 날짜로 기록 저장
-                    Date currentDate = Calendar.getInstance().getTime();
-                    String date_text = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(currentDate);
+                        //서비스 종료 구현
+                        if (isService) {
+                            unbindService(conn);
+                            isService = false;
+                        }
+
+                        //Measure Activity로 값 전달 (저장)
+                        Intent saveIntent = new Intent(context.getApplicationContext(), MainActivity.class);
+                        saveIntent.putExtra("SAVE OR NOT", "ok");
+                        saveIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(saveIntent);
+                        finish();
 
 
-                    //record_item 날짜,제목,소요시간,총 거리 초기화 완료
-                    recordObject saveRecordItems = new recordObject(date_text, recordtitle, totalDistance, leadTime, avgPaceMin+"\'"+avgPaceSec+"\"");
-                    adapter.add(saveRecordItems);
+                        // 커스텀 다이얼로그를 종료.
+                        mydlg.dismiss();
 
-                    Toast.makeText(context, "기록을 저장했습니다.", Toast.LENGTH_SHORT).show();
-
-                    //서비스 종료 구현
-                    if(isService) {
-                        unbindService(conn);
-                        isService = false;
                     }
+                });
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(context, "저장을 취소합니다.", Toast.LENGTH_SHORT).show();
 
-                    //Measure Activity로 값 전달 (저장)
-                    Intent saveIntent = new Intent(context.getApplicationContext(), MainActivity.class);
-                    saveIntent.putExtra("SAVE OR NOT", "ok");
-                    saveIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(saveIntent);
-                    finish();
-
-
-
-                    // 커스텀 다이얼로그를 종료.
-                    mydlg.dismiss();
-
-                }
-            });
-            cancelButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(context, "저장을 취소합니다.", Toast.LENGTH_SHORT).show();
-
-                    //Measure Activity로 값 전달 (취소)
-                    Intent saveIntent = new Intent(context.getApplicationContext(), MeasureActivity.class);
-                    saveIntent.putExtra("SAVE OR NOT", "no");
+                        //Measure Activity로 값 전달 (취소)
+                        Intent saveIntent = new Intent(context.getApplicationContext(), MeasureActivity.class);
+                        saveIntent.putExtra("SAVE OR NOT", "no");
 //                    saveIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                    startActivity(saveIntent);
 //                    finish();
 
-                    // 커스텀 다이얼로그를 종료한다.
-                    mydlg.dismiss();
-                }
-            });
+                        // 커스텀 다이얼로그를 종료한다.
+                        mydlg.dismiss();
+                    }
+                });
+
+            }
 
         }
 
+
     }
-
-
-}
