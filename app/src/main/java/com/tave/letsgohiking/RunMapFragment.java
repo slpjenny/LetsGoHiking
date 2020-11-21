@@ -74,7 +74,7 @@ public class RunMapFragment extends Fragment implements OnMapReadyCallback {
         // Location Change Listener을 사용하기 위한 FusedLocationSource 설정
         naverMap.setLocationSource(locationSource);
         naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
-
+        //naverMap.setMinZoom(14.5);
     }
 
     @Override

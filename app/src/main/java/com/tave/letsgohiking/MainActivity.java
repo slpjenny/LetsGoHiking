@@ -230,10 +230,8 @@ public class MainActivity extends AppCompatActivity {
 
         path.setCoords(placeList);
 
-        path.setWidth(20);
-        path.setColor(Color.MAGENTA);
+        path.setWidth(10);
+        path.setColor(Color.rgb(64, 81, 191));
         path.setMap(mapFragment.naverMap);
     }
-
-
 }
